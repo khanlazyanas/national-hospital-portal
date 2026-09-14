@@ -11,20 +11,20 @@ import { Star } from "lucide-react";
 export default function Home() {
   return (
     <main className="min-h-screen bg-surfaceWhite">
-      <section className="relative w-full bg-[#8aa4b5] h-[850px] md:h-[750px] overflow-hidden">
+      <section className="relative w-full bg-[#8aa4b5] h-[900px] md:h-[750px] overflow-hidden">
         <Navbar />
 
-        {/* Center Transparent Doctor Image (Loaded directly from your local public folder) */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[85%] md:h-[90%] z-10 pointer-events-none">
+        {/* Center Transparent Doctor Image */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full md:w-auto h-[50%] md:h-[90%] z-10 pointer-events-none flex justify-center items-end">
           <img 
             src="/doctor2.png" 
             alt="Lead Doctor" 
-            className="h-full w-auto object-contain object-bottom drop-shadow-2xl"
+            className="max-h-full w-auto object-contain object-bottom drop-shadow-2xl"
           />
         </div>
         
-        {/* Left Content */}
-        <div className="absolute top-[50%] -translate-y-1/2 left-8 md:left-16 lg:left-24 z-20 flex flex-col items-start gap-5 w-full max-w-md">
+        {/* Left Content - Mobile Responsive */}
+        <div className="absolute top-[110px] md:top-[50%] md:-translate-y-1/2 left-6 right-6 md:left-16 lg:left-24 z-20 flex flex-col items-start gap-4 md:gap-5 md:max-w-md">
           <div className="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border border-white/20 text-white">
             <div className="flex -space-x-2">
               <img src="https://i.pravatar.cc/100?img=5" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
@@ -37,7 +37,7 @@ export default function Home() {
             MEDICAL
           </h1>
           
-          <p className="max-w-[320px] text-sm leading-relaxed text-white opacity-95 font-medium mt-1">
+          <p className="w-full max-w-[320px] text-sm leading-relaxed text-white opacity-95 font-medium mt-1">
             Together, advancing healthcare through compassionate, innovative, and patient-centered excellence.
           </p>
           
@@ -45,7 +45,7 @@ export default function Home() {
             Explore more
           </button>
 
-          <div className="mt-4 bg-white text-[#0b2447] p-2.5 rounded-2xl shadow-xl flex items-center gap-4 w-[280px] transform hover:-translate-y-1 transition-transform">
+          <div className="mt-2 md:mt-4 bg-white text-[#0b2447] p-2.5 rounded-2xl shadow-xl flex items-center gap-4 w-[280px] transform hover:-translate-y-1 transition-transform">
             <img src="https://i.pravatar.cc/100?img=12" alt="Support" className="w-12 h-12 rounded-xl object-cover" />
             <div>
               <p className="text-[11px] font-bold leading-tight">Specialized neurological<br/>support line</p>
@@ -72,20 +72,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="w-full py-24 px-8 md:px-16 lg:px-24 flex flex-col md:flex-row items-center justify-center gap-12 text-[#0b2447] border-b border-gray-100 bg-white">
-        <div className="flex items-center justify-end gap-6 md:w-1/2 md:pr-12 border-r-0 md:border-r border-gray-200">
-          <div className="text-right">
+      {/* Stats Section - Mobile Responsive */}
+      <section className="w-full py-20 px-6 md:px-16 lg:px-24 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-[#0b2447] border-b border-gray-100 bg-white">
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-end gap-4 md:gap-6 w-full md:w-1/2 md:pr-12 border-b md:border-b-0 md:border-r border-gray-200 pb-8 md:pb-0">
+          <div className="text-center md:text-right">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Medical excellence</p>
             <p className="text-xs font-semibold text-[#0b2447]">25 years of excellence</p>
           </div>
-          <h2 className="text-7xl md:text-[6.5rem] font-bold text-[#0b2447] tracking-tighter leading-none">
+          <h2 className="text-6xl md:text-[6.5rem] font-bold text-[#0b2447] tracking-tighter leading-none">
             25+
           </h2>
         </div>
         
-        <div className="md:w-1/2 md:pl-4 max-w-md text-center md:text-left">
-          <p className="text-xl font-bold leading-snug mb-5 text-[#0b2447]">
+        <div className="w-full md:w-1/2 md:pl-4 max-w-md text-center md:text-left">
+          <p className="text-lg md:text-xl font-bold leading-snug mb-5 text-[#0b2447]">
             Trusted medical professionals united by one purpose — delivering compassionate, quality healthcare.
           </p>
           <button className="bg-[#0b2447] text-white px-7 py-3 text-xs font-bold rounded-md hover:bg-[#8aa4b5] transition-colors shadow-md">
