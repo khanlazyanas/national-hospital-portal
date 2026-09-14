@@ -19,9 +19,8 @@ export default function Home() {
 
         {/* Center Transparent Doctor Image (Acts as background layer) */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] md:w-[600px] h-[75%] md:h-[90%] z-0 pointer-events-none flex items-end justify-center">
-          {/* Using a transparent PNG to match the exact screenshot blend effect */}
           <img 
-            src="https://freepngimg.com/thumb/doctor/67709-physician-health-care-medicine-female-doctor-stethoscop.png" 
+            src="https://www.freepnglogos.com/uploads/doctor-png/png-woman-doctor-transparent-woman-doctor-images-4.png" 
             alt="Lead Doctor" 
             className="w-full h-full object-contain object-bottom drop-shadow-2xl opacity-95"
           />
