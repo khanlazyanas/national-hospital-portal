@@ -11,22 +11,19 @@ import { Star } from "lucide-react";
 export default function Home() {
   return (
     <main className="min-h-screen bg-surfaceWhite">
-      {/* Hero Section - Fixed Height for exact absolute positioning */}
       <section className="relative w-full bg-[#8aa4b5] h-[850px] md:h-[750px] overflow-hidden">
-        
-        {/* Navigation */}
         <Navbar />
 
-        {/* Center Transparent Doctor Image (Ultra HD Female Doctor, Premium CDN) */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[80%] md:h-[88%] z-10 pointer-events-none flex justify-center items-end">
+        {/* Center Transparent Doctor Image (Loaded directly from your local public folder) */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[85%] md:h-[90%] z-10 pointer-events-none">
           <img 
-            src="https://www.pngplay.com/wp-content/uploads/12/Doctor-Woman-Transparent-PNG.png" 
+            src="/doctor.png" 
             alt="Lead Doctor" 
-            className="h-full w-auto object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.35)] contrast-105 saturate-110 scale-105 transition-transform duration-700"
+            className="h-full w-auto object-contain object-bottom drop-shadow-2xl"
           />
         </div>
         
-        {/* Left Content (Perfectly Vertically Centered) */}
+        {/* Left Content */}
         <div className="absolute top-[50%] -translate-y-1/2 left-8 md:left-16 lg:left-24 z-20 flex flex-col items-start gap-5 w-full max-w-md">
           <div className="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border border-white/20 text-white">
             <div className="flex -space-x-2">
@@ -48,7 +45,6 @@ export default function Home() {
             Explore more
           </button>
 
-          {/* Floating Support Card */}
           <div className="mt-4 bg-white text-[#0b2447] p-2.5 rounded-2xl shadow-xl flex items-center gap-4 w-[280px] transform hover:-translate-y-1 transition-transform">
             <img src="https://i.pravatar.cc/100?img=12" alt="Support" className="w-12 h-12 rounded-xl object-cover" />
             <div>
@@ -62,7 +58,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right Content (Placed High Up) */}
+        {/* Right Content */}
         <div className="hidden lg:block absolute top-[25%] right-16 lg:right-24 z-20 max-w-[280px] text-right text-white">
           <p className="font-medium text-sm leading-relaxed opacity-95 drop-shadow-md">
             "At our healthcare center, we are committed to delivering advanced medical care that places your health, comfort, and long-term well-being at the heart of everything we do."
