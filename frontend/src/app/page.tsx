@@ -11,10 +11,11 @@ import { Star } from "lucide-react";
 export default function Home() {
   return (
     <main className="min-h-screen bg-surfaceWhite">
+      {/* Hero Section */}
       <section className="relative w-full bg-[#8aa4b5] h-[850px] md:h-[750px] overflow-hidden">
         <Navbar />
 
-        {/* Center Transparent Doctor Image (Loaded from local public folder) */}
+        {/* Center Transparent Doctor Image (Loaded directly from your public folder) */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[80%] md:h-[85%] z-10 pointer-events-none">
           <img 
             src="/doctor.png" 
@@ -23,6 +24,7 @@ export default function Home() {
           />
         </div>
         
+        {/* Left Content */}
         <div className="absolute top-[55%] -translate-y-1/2 left-8 md:left-16 lg:left-24 z-20 flex flex-col items-start gap-5 w-full max-w-md">
           <div className="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border border-white/20 text-white">
             <div className="flex -space-x-2">
@@ -57,6 +59,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Right Content */}
         <div className="hidden lg:block absolute top-[30%] right-16 lg:right-24 z-20 max-w-[280px] text-right text-white">
           <p className="font-medium text-sm leading-relaxed opacity-95 drop-shadow-md">
             "At our healthcare center, we are committed to delivering advanced medical care that places your health, comfort, and long-term well-being at the heart of everything we do."
@@ -70,6 +73,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stats Section */}
       <section className="w-full py-24 px-8 md:px-16 lg:px-24 flex flex-col md:flex-row items-center justify-center gap-12 text-[#0b2447] border-b border-gray-100 bg-white">
         <div className="flex items-center justify-end gap-6 md:w-1/2 md:pr-12 border-r-0 md:border-r border-gray-200">
           <div className="text-right">
