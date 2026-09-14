@@ -17,7 +17,7 @@ export default function Home() {
         {/* Center Transparent Doctor Image (Loaded directly from your local public folder) */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[85%] md:h-[90%] z-10 pointer-events-none">
           <img 
-            src="/doctor.png" 
+            src="/doctor1.png" 
             alt="Lead Doctor" 
             className="h-full w-auto object-contain object-bottom drop-shadow-2xl"
           />
