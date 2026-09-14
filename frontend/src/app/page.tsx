@@ -15,12 +15,12 @@ export default function Home() {
       <section className="relative w-full bg-[#8aa4b5] h-[850px] md:h-[750px] overflow-hidden">
         <Navbar />
 
-        {/* Center Transparent Doctor Image (Loaded directly from your public folder) */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[80%] md:h-[85%] z-10 pointer-events-none">
+        {/* Center Main Image - Premium Arch Frame (100% Vercel Safe) */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[350px] md:w-[480px] h-[65%] md:h-[80%] z-10 flex items-end justify-center mb-0 md:mb-0">
           <img 
-            src="/doctor.png" 
+            src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800" 
             alt="Lead Doctor" 
-            className="h-full w-auto object-contain object-bottom drop-shadow-2xl"
+            className="w-full h-full object-cover object-top rounded-t-full border-x-8 border-t-8 border-white/20 shadow-2xl drop-shadow-2xl"
           />
         </div>
         
@@ -28,8 +28,8 @@ export default function Home() {
         <div className="absolute top-[55%] -translate-y-1/2 left-8 md:left-16 lg:left-24 z-20 flex flex-col items-start gap-5 w-full max-w-md">
           <div className="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border border-white/20 text-white">
             <div className="flex -space-x-2">
-              <img src="https://i.pravatar.cc/100?img=5" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
-              <img src="https://i.pravatar.cc/100?img=9" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
+              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=100" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
+              <img src="https://images.unsplash.com/photo-1594824436998-d822cd013a5a?auto=format&fit=crop&q=80&w=100" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
             </div>
             <span className="tracking-wide">200+ Verified Doctors</span>
           </div>
@@ -46,8 +46,9 @@ export default function Home() {
             Explore more
           </button>
 
+          {/* Floating Support Card */}
           <div className="mt-4 bg-white text-[#0b2447] p-2.5 rounded-2xl shadow-xl flex items-center gap-4 w-[280px] transform hover:-translate-y-1 transition-transform">
-            <img src="https://i.pravatar.cc/100?img=12" alt="Support" className="w-12 h-12 rounded-xl object-cover" />
+            <img src="https://images.unsplash.com/photo-1651008376811-b932ef55c1e5?auto=format&fit=crop&q=80&w=100" alt="Support" className="w-12 h-12 rounded-xl object-cover" />
             <div>
               <p className="text-[11px] font-bold leading-tight">Specialized neurological<br/>support line</p>
               <div className="flex gap-0.5 mt-1.5">
