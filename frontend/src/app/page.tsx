@@ -11,28 +11,23 @@ import { Star } from "lucide-react";
 export default function Home() {
   return (
     <main className="min-h-screen bg-surfaceWhite">
-      {/* Hero Section - Fixed Height for exact absolute positioning */}
       <section className="relative w-full bg-[#8aa4b5] h-[850px] md:h-[750px] overflow-hidden">
-        
-        {/* Navigation */}
         <Navbar />
 
-        {/* Center Transparent Doctor Image */}
-        {/* Positioned exactly at the bottom center, cutting off at the white section */}
+        {/* Center Transparent Doctor Image (Loaded from local public folder) */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[80%] md:h-[85%] z-10 pointer-events-none">
           <img 
-            src="https://static.vecteezy.com/system/resources/previews/028/287/384/non_2x/a-female-doctor-with-a-stethoscope-isolated-on-transparent-background-photorealistic-health-and-medical-concept-free-png.png" 
+            src="/doctor.png" 
             alt="Lead Doctor" 
             className="h-full w-auto object-contain object-bottom drop-shadow-2xl"
           />
         </div>
         
-        {/* Left Content - Vertically Centered */}
         <div className="absolute top-[55%] -translate-y-1/2 left-8 md:left-16 lg:left-24 z-20 flex flex-col items-start gap-5 w-full max-w-md">
           <div className="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border border-white/20 text-white">
             <div className="flex -space-x-2">
-              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=100" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
-              <img src="https://images.unsplash.com/photo-1594824436998-d822cd013a5a?auto=format&fit=crop&q=80&w=100" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
+              <img src="https://i.pravatar.cc/100?img=5" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
+              <img src="https://i.pravatar.cc/100?img=9" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
             </div>
             <span className="tracking-wide">200+ Verified Doctors</span>
           </div>
@@ -49,9 +44,8 @@ export default function Home() {
             Explore more
           </button>
 
-          {/* Floating Support Card */}
           <div className="mt-4 bg-white text-[#0b2447] p-2.5 rounded-2xl shadow-xl flex items-center gap-4 w-[280px] transform hover:-translate-y-1 transition-transform">
-            <img src="https://images.unsplash.com/photo-1651008376811-b932ef55c1e5?auto=format&fit=crop&q=80&w=100" alt="Support" className="w-12 h-12 rounded-xl object-cover" />
+            <img src="https://i.pravatar.cc/100?img=12" alt="Support" className="w-12 h-12 rounded-xl object-cover" />
             <div>
               <p className="text-[11px] font-bold leading-tight">Specialized neurological<br/>support line</p>
               <div className="flex gap-0.5 mt-1.5">
@@ -63,7 +57,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right Content (Quote Box) - Positioned high up on the right */}
         <div className="hidden lg:block absolute top-[30%] right-16 lg:right-24 z-20 max-w-[280px] text-right text-white">
           <p className="font-medium text-sm leading-relaxed opacity-95 drop-shadow-md">
             "At our healthcare center, we are committed to delivering advanced medical care that places your health, comfort, and long-term well-being at the heart of everything we do."
@@ -75,12 +68,9 @@ export default function Home() {
             <p className="font-bold text-[10px] uppercase tracking-widest text-[#d8e6ef]">DR. SARAH CONNOR</p>
           </div>
         </div>
-
       </section>
 
-      {/* Stats Section - Exact match to the screenshot */}
       <section className="w-full py-24 px-8 md:px-16 lg:px-24 flex flex-col md:flex-row items-center justify-center gap-12 text-[#0b2447] border-b border-gray-100 bg-white">
-        
         <div className="flex items-center justify-end gap-6 md:w-1/2 md:pr-12 border-r-0 md:border-r border-gray-200">
           <div className="text-right">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Medical excellence</p>
@@ -99,7 +89,6 @@ export default function Home() {
             Explore more
           </button>
         </div>
-
       </section>
 
       <DepartmentsSection />
