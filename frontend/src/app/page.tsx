@@ -11,16 +11,18 @@ import { Star } from "lucide-react";
 export default function Home() {
   return (
     <main className="min-h-screen bg-surfaceWhite">
-      {/* Hero Section */}
+      {/* Hero Section - Fixed Height for exact absolute positioning */}
       <section className="relative w-full bg-[#8aa4b5] h-[850px] md:h-[750px] overflow-hidden">
+        
+        {/* Navigation */}
         <Navbar />
 
-        {/* Center Transparent Doctor Image (Exact Screenshot Match - NO Borders/Arch) */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[85%] md:h-[90%] z-10 pointer-events-none">
+        {/* Center Transparent Doctor Image (Ultra HD Female Doctor, Premium CDN) */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[80%] md:h-[88%] z-10 pointer-events-none flex justify-center items-end">
           <img 
-            src="https://pngimg.com/uploads/doctor/doctor_PNG15988.png" 
+            src="https://www.pngplay.com/wp-content/uploads/12/Doctor-Woman-Transparent-PNG.png" 
             alt="Lead Doctor" 
-            className="h-full w-auto object-contain object-bottom drop-shadow-2xl"
+            className="h-full w-auto object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.35)] contrast-105 saturate-110 scale-105 transition-transform duration-700"
           />
         </div>
         
