@@ -11,68 +11,64 @@ import { Star } from "lucide-react";
 export default function Home() {
   return (
     <main className="min-h-screen bg-surfaceWhite">
-      <section className="relative w-full bg-[#8aa4b5] h-[900px] md:h-[750px] overflow-hidden">
-        <Navbar />
-
-        {/* Center Transparent Doctor Image */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full md:w-auto h-[50%] md:h-[90%] z-10 pointer-events-none flex justify-center items-end">
-          <img 
-            src="/doctor2.png" 
-            alt="Lead Doctor" 
-            className="max-h-full w-auto object-contain object-bottom drop-shadow-2xl"
-          />
-        </div>
+      {/* Hero Section - Full Background Image Style */}
+      <section className="relative w-full h-[100vh] md:h-[800px] flex flex-col justify-center overflow-hidden">
         
-        {/* Left Content - Mobile Responsive */}
-        <div className="absolute top-[110px] md:top-[50%] md:-translate-y-1/2 left-6 right-6 md:left-16 lg:left-24 z-20 flex flex-col items-start gap-4 md:gap-5 md:max-w-md">
-          <div className="flex items-center gap-3 bg-white/20 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border border-white/20 text-white">
-            <div className="flex -space-x-2">
-              <img src="https://i.pravatar.cc/100?img=5" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
-              <img src="https://i.pravatar.cc/100?img=9" alt="Avatar" className="w-6 h-6 rounded-full object-cover border border-[#8aa4b5]" />
-            </div>
-            <span className="tracking-wide">200+ Verified Doctors</span>
+        {/* Background Image & Gradient Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1576091160550-2173ff9e5ee4?auto=format&fit=crop&q=80&w=1920" 
+            alt="Medical Care Background" 
+            className="w-full h-full object-cover object-center"
+          />
+          {/* Dark gradient overlay to make text readable */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0b2447]/70 via-[#0b2447]/50 to-[#0b2447]/90 backdrop-blur-[2px]"></div>
+        </div>
+
+        {/* Navbar on top */}
+        <div className="absolute top-0 w-full z-30">
+          <Navbar />
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-20 px-6 md:px-16 lg:px-24 mt-16 md:mt-0 text-white w-full max-w-4xl">
+          <div className="inline-flex items-center gap-2 border border-white/30 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold mb-6 tracking-wide shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            TRUSTED BY 50,000+ FAMILIES ACROSS INDIA
           </div>
           
-          <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-tight leading-none text-white drop-shadow-sm mt-1">
-            MEDICAL
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-white drop-shadow-lg mb-8">
+            Clinical-Grade Care,<br className="hidden md:block" /> Delivered Home.
           </h1>
           
-          <p className="w-full max-w-[320px] text-sm leading-relaxed text-white opacity-95 font-medium mt-1">
-            Together, advancing healthcare through compassionate, innovative, and patient-centered excellence.
-          </p>
-          
-          <button className="bg-[#0b2447] text-white px-8 py-3.5 text-sm font-semibold rounded-lg hover:bg-white hover:text-[#0b2447] transition-all duration-300 mt-2 shadow-lg">
-            Explore more
-          </button>
-
-          <div className="mt-2 md:mt-4 bg-white text-[#0b2447] p-2.5 rounded-2xl shadow-xl flex items-center gap-4 w-[280px] transform hover:-translate-y-1 transition-transform">
-            <img src="https://i.pravatar.cc/100?img=12" alt="Support" className="w-12 h-12 rounded-xl object-cover" />
-            <div>
-              <p className="text-[11px] font-bold leading-tight">Specialized neurological<br/>support line</p>
-              <div className="flex gap-0.5 mt-1.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3 h-3 fill-[#0b2447] text-[#0b2447]" />
-                ))}
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md md:max-w-none">
+            <button className="bg-[#1a5b9b] text-white px-8 py-3.5 text-sm font-semibold rounded-lg hover:bg-[#124273] transition-colors shadow-xl w-full sm:w-auto text-center">
+              Book a Care Service
+            </button>
+            <button className="bg-transparent border-2 border-white/60 text-white px-8 py-3.5 text-sm font-semibold rounded-lg hover:bg-white/10 transition-colors w-full sm:w-auto text-center backdrop-blur-sm">
+              Browse Equipment
+            </button>
           </div>
         </div>
 
-        {/* Right Content */}
-        <div className="hidden lg:block absolute top-[25%] right-16 lg:right-24 z-20 max-w-[280px] text-right text-white">
-          <p className="font-medium text-sm leading-relaxed opacity-95 drop-shadow-md">
-            "At our healthcare center, we are committed to delivering advanced medical care that places your health, comfort, and long-term well-being at the heart of everything we do."
-          </p>
-          <div className="flex items-center justify-end gap-2 mt-4 opacity-90">
-            <div className="w-5 h-5 rounded-full bg-white/30 flex items-center justify-center">
-              <Star className="w-2.5 h-2.5 fill-white text-white" />
-            </div>
-            <p className="font-bold text-[10px] uppercase tracking-widest text-[#d8e6ef]">DR. SARAH CONNOR</p>
+        {/* Bottom Floating Quick Actions (Like in Screenshot) */}
+        <div className="absolute bottom-6 left-6 right-6 md:left-16 md:right-16 z-20 flex justify-between items-end">
+          <div className="flex flex-col items-start gap-1">
+            <span className="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full ml-4 relative top-2 z-10">24*7</span>
+            <button className="bg-blue-600 text-white px-4 py-2.5 rounded-full text-xs font-semibold flex items-center gap-2 shadow-lg">
+              <span className="text-lg">📞</span> Just 30 mins away
+            </button>
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            <span className="bg-green-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mr-4 relative top-2 z-10">● ONLINE</span>
+            <button className="bg-green-500 text-white px-5 py-2.5 rounded-full text-xs font-semibold flex items-center gap-2 shadow-lg">
+              WhatsApp
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Stats Section - Mobile Responsive */}
+      {/* Stats Section */}
       <section className="w-full py-20 px-6 md:px-16 lg:px-24 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-[#0b2447] border-b border-gray-100 bg-white">
         <div className="flex flex-col md:flex-row items-center justify-center md:justify-end gap-4 md:gap-6 w-full md:w-1/2 md:pr-12 border-b md:border-b-0 md:border-r border-gray-200 pb-8 md:pb-0">
           <div className="text-center md:text-right">
