@@ -74,7 +74,8 @@ export default function Footer() {
             <li><Link href="/about" className="flex items-center gap-3 hover:text-blue-400 hover:translate-x-2 transition-all duration-300 group"><ArrowRight className="w-3 h-3 text-blue-500/50 group-hover:text-blue-400 transition-colors" /> About Us</Link></li>
             <li><Link href="/doctors" className="flex items-center gap-3 hover:text-blue-400 hover:translate-x-2 transition-all duration-300 group"><ArrowRight className="w-3 h-3 text-blue-500/50 group-hover:text-blue-400 transition-colors" /> Find a Doctor</Link></li>
             <li><Link href="/blog" className="flex items-center gap-3 hover:text-blue-400 hover:translate-x-2 transition-all duration-300 group"><ArrowRight className="w-3 h-3 text-blue-500/50 group-hover:text-blue-400 transition-colors" /> Health Blog</Link></li>
-            <li><Link href="/contact" className="flex items-center gap-3 hover:text-blue-400 hover:translate-x-2 transition-all duration-300 group"><ArrowRight className="w-3 h-3 text-blue-500/50 group-hover:text-blue-400 transition-colors" /> Book Appointment</Link></li>
+            {/* Updated Link below */}
+            <li><Link href="/appointment" className="flex items-center gap-3 hover:text-blue-400 hover:translate-x-2 transition-all duration-300 group"><ArrowRight className="w-3 h-3 text-blue-500/50 group-hover:text-blue-400 transition-colors" /> Book Appointment</Link></li>
           </ul>
         </div>
 
@@ -127,9 +128,10 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row justify-between items-center text-xs text-blue-50/50 font-light relative z-10">
         <p>&copy; {new Date().getFullYear()} National Hospital & Neuro Center. All rights reserved.</p>
         <div className="flex gap-8 mt-4 md:mt-0">
-          <Link href="/contact" className="hover:text-blue-400 transition-colors">Privacy Policy</Link>
-          <Link href="/contact" className="hover:text-blue-400 transition-colors">Terms of Service</Link>
-          <Link href="/contact" className="hover:text-blue-400 transition-colors">Accessibility</Link>
+          {/* Updated Links below */}
+          <Link href="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link>
+          <Link href="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</Link>
+          <Link href="/accessibility" className="hover:text-blue-400 transition-colors">Accessibility</Link>
         </div>
       </div>
     </footer>
