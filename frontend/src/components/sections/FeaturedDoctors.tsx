@@ -18,7 +18,7 @@ const doctors = [
   {
     name: "Dr. Emily Chen",
     specialty: "Senior Orthopedic",
-    image: "https://images.unsplash.com/photo-1594824436998-d822cd013a5a?auto=format&fit=crop&q=80&w=800",
+    image: "https://plus.unsplash.com/premium_photo-1658506671316-0b293df7c72b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     experience: "12+ Years",
   }
 ];
