@@ -49,6 +49,7 @@ export default function FAQSection() {
         </div>
         
         {/* Accordion Section */}
+        {/* @ts-ignore */}
         <Accordion type="single" collapsible className="w-full space-y-4">
           {faqs.map((faq, index) => (
             <AccordionItem 
