@@ -1,31 +1,54 @@
-import { CalendarDays, PhoneCall } from "lucide-react";
+import { CalendarDays, PhoneCall, Stethoscope } from "lucide-react";
 
 export default function AppointmentCTA() {
   return (
-    <section className="w-full py-20 px-8 md:px-16 lg:px-24 bg-surfaceWhite">
-      <div className="bg-deepNavy rounded-3xl p-8 md:p-16 flex flex-col md:flex-row items-center justify-between text-white relative overflow-hidden shadow-2xl">
-        {/* Background Decorative Gradient */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-heroBlue opacity-20 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-medicalCyan opacity-10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3"></div>
+    <section className="relative w-full py-24 px-6 md:px-16 lg:px-24 bg-white">
+      
+      {/* Massive Premium Glass Card */}
+      <div className="relative w-full rounded-[2.5rem] bg-[#020813] overflow-hidden p-8 md:p-16 lg:p-20 shadow-[0_30px_60px_-15px_rgba(11,36,71,0.4)] border border-[#0b2447]/50">
         
-        <div className="z-10 max-w-2xl mb-8 md:mb-0">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-            Ready to take control of your health?
+        {/* Glowing Abstract Orbs */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal-500/15 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+        
+        {/* Subtle Background Image Overlay (Blends smoothly into the dark) */}
+        <div className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity pointer-events-none">
+          <img 
+            src="https://images.unsplash.com/photo-1538108149393-cebb47acddb2?auto=format&fit=crop&q=80&w=1920" 
+            alt="Medical Facility" 
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020813] via-[#020813]/90 to-[#020813]/40"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-2">
+          
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-300 mb-6 shadow-sm">
+            <Stethoscope className="w-4 h-4" />
+            Priority Healthcare
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] text-white tracking-tight">
+            Ready to take control <br className="hidden md:block"/> of your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">health today?</span>
           </h2>
-          <p className="text-gray-300 text-sm md:text-base max-w-lg mb-8 leading-relaxed">
-            Book an appointment with our specialized doctors today. We offer comprehensive consultations and advanced medical care tailored to your specific needs.
+          
+          <p className="text-blue-100/70 text-base md:text-lg max-w-2xl mb-10 leading-relaxed font-light">
+            Book an appointment with our specialized doctors. We offer comprehensive consultations, advanced medical care, and a compassionate healing environment tailored just for you.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button className="flex items-center justify-center gap-2 bg-white text-deepNavy px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors">
-              <CalendarDays className="w-5 h-5" />
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <button className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-[0_0_30px_-5px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_-5px_rgba(37,99,235,0.6)] hover:scale-[1.02] group w-full sm:w-auto">
+              <CalendarDays className="w-5 h-5 group-hover:animate-pulse" />
               Book Appointment
             </button>
-            <button className="flex items-center justify-center gap-2 border border-gray-500 text-white px-8 py-3 rounded-md font-semibold hover:bg-white/10 transition-colors">
-              <PhoneCall className="w-5 h-5" />
-              Call +91 800 123 4567
+            <button className="flex items-center justify-center gap-2 bg-white/5 border border-white/20 hover:bg-white/10 hover:border-white/30 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 backdrop-blur-sm w-full sm:w-auto group">
+              <PhoneCall className="w-5 h-5 group-hover:text-blue-400 transition-colors" />
+              +91 800 123 4567
             </button>
           </div>
+
         </div>
       </div>
     </section>
