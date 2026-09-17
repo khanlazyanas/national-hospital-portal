@@ -6,7 +6,7 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/sections/FAQSection";
 import AppointmentCTA from "@/components/sections/AppointmentCTA";
 import Footer from "@/components/shared/Footer";
-import { Star, Phone, MessageCircle, ShieldCheck } from "lucide-react";
+import { Phone, MessageCircle, ShieldCheck } from "lucide-react";
 
 export default function Home() {
   return (
@@ -31,8 +31,8 @@ export default function Home() {
           <Navbar />
         </div>
 
-        {/* Main Content - Ultra Professional Typography */}
-        <div className="relative z-20 px-6 md:px-16 lg:px-24 mt-20 md:mt-0 text-white w-full max-w-6xl pb-32 md:pb-0">
+        {/* Main Content - FIXED SPACING (Added mt-32 md:mt-40) */}
+        <div className="relative z-20 px-6 md:px-16 lg:px-24 mt-32 md:mt-40 text-white w-full max-w-6xl pb-32 md:pb-0">
           
           {/* Trust Badge - Frosted Glass Effect */}
           <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-100 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] mb-8">
