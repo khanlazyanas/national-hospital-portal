@@ -6,13 +6,13 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/sections/FAQSection";
 import AppointmentCTA from "@/components/sections/AppointmentCTA";
 import Footer from "@/components/shared/Footer";
-import { Phone, MessageCircle, ShieldCheck } from "lucide-react";
+import { Phone, MessageCircle, ShieldCheck, ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-surfaceWhite">
-      {/* Hero Section - Ultra Premium Glassmorphism & Mesh Gradient Style */}
+      {/* Hero Section - Visually Upgraded for Dynamic Navbar */}
       <section className="relative w-full min-h-[100dvh] flex flex-col justify-center overflow-hidden">
         
         {/* Background Image & Advanced Gradient Overlay */}
@@ -20,47 +20,72 @@ export default function Home() {
           <img 
             src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1920" 
             alt="National Hospital Facility" 
-            className="w-full h-full object-cover object-center opacity-60 mix-blend-luminosity"
+            className="w-full h-full object-cover object-center opacity-50 mix-blend-luminosity"
           />
           {/* Multi-layered premium overlay for depth */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#020b1a]/95 via-[#0b2447]/60 to-[#020b1a]/95 backdrop-blur-[3px]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-600/20 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020b1a]/95 via-[#0b2447]/70 to-[#020b1a]/95 backdrop-blur-[2px]"></div>
         </div>
+
+        {/* Floating Glowing Orbs for 3D Effect */}
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-teal-500/20 rounded-full blur-[100px] pointer-events-none mix-blend-screen"></div>
 
         {/* Navbar on top */}
         <div className="absolute top-0 w-full z-30">
           <Navbar />
         </div>
 
-        {/* Main Content - ADJUSTED SPACING FOR DYNAMIC NAV (mt-32 md:mt-48) */}
-        <div className="relative z-20 px-6 md:px-16 lg:px-24 mt-32 md:mt-48 text-white w-full max-w-6xl pb-32 md:pb-0">
+        {/* Main Content - Noticeable Visual Upgrade */}
+        <div className="relative z-20 px-6 md:px-16 lg:px-24 pt-40 md:pt-52 text-white w-full max-w-7xl pb-32 md:pb-0 flex flex-col lg:flex-row items-center lg:items-start justify-between">
           
-          {/* Trust Badge - Frosted Glass Effect */}
-          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-100 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] mb-8">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse shadow-[0_0_10px_rgba(96,165,250,0.8)]"></span>
-            Premier Neurology & Multispecialty Care
-          </div>
-          
-          {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tighter leading-[1.05] text-white drop-shadow-2xl mb-6">
-            Advanced Medical &<br className="hidden md:block" /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-200"> Neurological Excellence.</span>
-          </h1>
+          {/* Left Text Content */}
+          <div className="w-full lg:w-2/3">
+            {/* Trust Badge - Frosted Glass Effect */}
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-blue-400/30 bg-blue-900/30 backdrop-blur-xl text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-200 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] mb-8">
+              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_10px_rgba(45,212,191,0.8)]"></span>
+              Premier Neurology & Multispecialty Care
+            </div>
+            
+            {/* Main Headline */}
+            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter leading-[1.05] text-white drop-shadow-2xl mb-6">
+              Advanced Medical &<br className="hidden md:block" /> 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-blue-200"> Neurological Excellence.</span>
+            </h1>
 
-          {/* Subheadline */}
-          <p className="text-sm md:text-lg text-blue-50/80 max-w-2xl mb-10 leading-relaxed font-light">
-            At National Hospital & Neuro Center, we combine state-of-the-art technology with compassionate care to deliver world-class medical treatments tailored to your health.
-          </p>
-          
-          {/* CTA Buttons - High Contrast & Glow Effects */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md md:max-w-none">
-            <Link href="/appointment" className="relative group overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 text-sm font-bold rounded-xl shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)] border border-blue-400/50 hover:scale-[1.02] transition-all duration-300 w-full sm:w-auto text-center block">
-              <span className="relative z-10">Book an Appointment</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-            <Link href="/services" className="bg-white/5 backdrop-blur-md border border-white/20 text-white px-8 py-4 text-sm font-bold rounded-xl hover:bg-white/10 hover:border-white/40 transition-all duration-300 w-full sm:w-auto text-center block">
-              Explore Departments
-            </Link>
+            {/* Subheadline */}
+            <p className="text-sm md:text-lg text-blue-50/80 max-w-2xl mb-10 leading-relaxed font-medium">
+              At National Hospital & Neuro Center, we combine state-of-the-art technology with compassionate care to deliver world-class medical treatments tailored to your health.
+            </p>
+            
+            {/* CTA Buttons - High Contrast & Glow Effects */}
+            <div className="flex flex-col sm:flex-row gap-5 w-full max-w-md md:max-w-none">
+              <Link href="/appointment" className="relative group overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 text-sm font-bold rounded-xl shadow-[0_0_40px_-10px_rgba(37,99,235,0.6)] border border-blue-400/50 hover:scale-[1.02] transition-all duration-300 w-full sm:w-auto text-center flex items-center justify-center gap-2">
+                <span className="relative z-10">Book an Appointment</span>
+                <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </Link>
+              <Link href="/services" className="bg-white/5 backdrop-blur-md border border-white/20 text-white px-8 py-4 text-sm font-bold rounded-xl hover:bg-white/10 hover:border-white/40 transition-all duration-300 w-full sm:w-auto text-center flex items-center justify-center">
+                Explore Departments
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Side Floating Element (New Addition for visual balance) */}
+          <div className="hidden lg:flex w-1/3 justify-end pt-12">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-500">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex -space-x-3">
+                  <div className="w-10 h-10 rounded-full border-2 border-[#0b2447] bg-gray-200 overflow-hidden"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=100" alt="Doc" /></div>
+                  <div className="w-10 h-10 rounded-full border-2 border-[#0b2447] bg-gray-300 overflow-hidden"><img src="https://images.unsplash.com/photo-1612222869049-d8ec83637a3c?auto=format&fit=crop&q=80&w=100" alt="Doc" /></div>
+                  <div className="w-10 h-10 rounded-full border-2 border-[#0b2447] bg-gray-200 overflow-hidden"><img src="https://images.unsplash.com/photo-1594824436998-d822cd013a5a?auto=format&fit=crop&q=80&w=100" alt="Doc" /></div>
+                </div>
+                <div className="flex items-center gap-1 bg-yellow-400/20 text-yellow-300 px-2 py-1 rounded-lg text-xs font-bold">
+                  <Star className="w-3 h-3 fill-yellow-300" /> 4.9
+                </div>
+              </div>
+              <p className="text-white font-extrabold text-xl">200+ Top Specialists</p>
+              <p className="text-blue-200 text-sm font-medium mt-1">Available for online & offline consultation.</p>
+            </div>
           </div>
         </div>
 
