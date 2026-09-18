@@ -4,7 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, MessageSquarePlus, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const faqs = [
   {
@@ -29,8 +30,9 @@ export default function FAQSection() {
   return (
     <section className="relative w-full py-24 px-6 md:px-16 lg:px-24 bg-white overflow-hidden">
       
-      {/* Decorative Background Elements */}
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-blue-50/60 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 -translate-x-1/3"></div>
+      {/* Premium Decorative Background Elements */}
+      <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 -translate-x-1/3 mix-blend-multiply"></div>
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[100px] pointer-events-none translate-y-1/3 translate-x-1/3 mix-blend-multiply"></div>
       
       <div className="relative z-10 max-w-4xl mx-auto">
         
@@ -40,32 +42,48 @@ export default function FAQSection() {
             <HelpCircle className="w-4 h-4" />
             Help & Support
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0b2447] tracking-tight leading-tight mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0b2447] tracking-tighter leading-tight mb-6 drop-shadow-sm">
             Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Questions</span>
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-base font-medium">
-            Find answers to common questions about our hospital services, appointments, and patient care guidelines.
+          <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg font-medium leading-relaxed">
+            Find quick answers to common questions about our hospital services, appointment procedures, and patient care guidelines.
           </p>
         </div>
         
         {/* Accordion Section */}
         {/* @ts-ignore */}
-        <Accordion type="single" collapsible className="w-full space-y-4">
+        <Accordion type="single" collapsible className="w-full space-y-6">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`item-${index}`} 
-              className="bg-white border border-gray-100 rounded-2xl px-6 md:px-8 data-[state=open]:border-blue-100 data-[state=open]:bg-blue-50/30 data-[state=open]:shadow-[0_10px_30px_-15px_rgba(37,99,235,0.15)] transition-all duration-300"
+              className="group bg-white border border-gray-100 rounded-[2rem] px-6 md:px-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(37,99,235,0.08)] data-[state=open]:border-blue-200 data-[state=open]:bg-blue-50/40 data-[state=open]:shadow-[0_20px_50px_-15px_rgba(37,99,235,0.15)] transition-all duration-[600ms] ease-[cubic-bezier(0.19,1,0.22,1)]"
             >
-              <AccordionTrigger className="text-left text-lg md:text-xl font-bold text-[#0b2447] hover:text-blue-600 hover:no-underline transition-colors py-6">
+              <AccordionTrigger className="text-left text-lg md:text-xl font-extrabold text-[#0b2447] group-data-[state=open]:text-blue-600 hover:text-blue-600 hover:no-underline transition-colors duration-300 py-6 md:py-8 outline-none">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 leading-relaxed text-base pb-6 font-medium">
+              <AccordionContent className="text-gray-600 leading-relaxed text-base pb-8 font-medium">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
+
+        {/* Mini CTA for unresolved queries */}
+        <div className="mt-16 text-center flex flex-col items-center justify-center">
+          <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-blue-100">
+            <MessageSquarePlus className="w-8 h-8 text-blue-600" />
+          </div>
+          <h3 className="text-2xl font-bold text-[#0b2447] mb-2">Still have questions?</h3>
+          <p className="text-gray-500 font-medium mb-6">Our 24/7 support team is always ready to help you.</p>
+          <Link 
+            href="/contact"
+            className="group flex items-center gap-2 bg-[#0b2447] text-white px-8 py-3.5 rounded-xl text-sm font-bold shadow-[0_10px_20px_-10px_rgba(11,36,71,0.5)] hover:bg-blue-600 hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.5)] transition-all duration-300 outline-none"
+          >
+            Contact Support <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform ease-[cubic-bezier(0.19,1,0.22,1)]" />
+          </Link>
+        </div>
+
       </div>
     </section>
   );
