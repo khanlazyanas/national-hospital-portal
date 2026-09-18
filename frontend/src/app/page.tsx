@@ -93,7 +93,7 @@ export default function Home() {
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] md:w-auto z-30">
           <div className="flex flex-col md:flex-row items-center justify-between md:justify-center gap-4 md:gap-8 bg-white/10 backdrop-blur-2xl border border-white/20 px-6 py-4 rounded-3xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]">
             
-            {/* Accreditation / Trust Symbol */}
+            Accreditation / Trust Symbol
             <div className="hidden md:flex items-center gap-2 pr-8 border-r border-white/20">
               <ShieldCheck className="w-5 h-5 text-blue-400" />
               <div className="flex flex-col text-left">
