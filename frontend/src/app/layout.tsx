@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import FloatingSupport from "@/components/shared/FloatingSupport";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -21,6 +22,10 @@ export default function RootLayout({
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className={`${inter.className} bg-surfaceWhite text-deepNavy antialiased`}>
         {children}
+        
+      
+        <FloatingSupport />
+        
       </body>
     </html>
   );
