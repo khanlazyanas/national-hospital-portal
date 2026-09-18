@@ -6,11 +6,11 @@ import { ShieldCheck, HeartPulse, Award, Users, ArrowRight, Building2, CheckCirc
 
 export default function AboutPage() {
   return (
-    <main className="font-sans text-white bg-white selection:bg-teal-500 selection:text-white overflow-x-hidden">
+    <main className="font-sans text-white bg-white selection:bg-teal-500 selection:text-white">
       <Navbar />
 
       {/* ================= ELITE BANNER: THE MANIFESTO ================= */}
-      <section className="relative w-full min-h-[85vh] flex flex-col justify-center pt-36 pb-28 md:pt-48 md:pb-40 px-4 sm:px-6 md:px-16 lg:px-24 overflow-hidden bg-[#020813]">
+      <section className="relative w-full min-h-[85vh] flex flex-col justify-center pt-40 pb-32 md:pt-48 md:pb-40 px-6 md:px-16 lg:px-24 overflow-hidden bg-[#020813]">
         
         {/* Background Effects & Image Overlay */}
         <div className="absolute inset-0 z-0">
@@ -26,24 +26,19 @@ export default function AboutPage() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/20 rounded-full blur-[120px] pointer-events-none translate-y-1/2 -translate-x-1/4"></div>
 
-        {/* Header Content - Centered with Responsive Massive Typography */}
-        <div className="relative z-10 max-w-4xl lg:max-w-6xl mx-auto text-center flex flex-col items-center">
-          
-          <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/5 border border-white/10 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-8 md:mb-12 backdrop-blur-md shadow-sm">
-            <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-400" />
+        {/* Header Content - Centered (Matched exactly to Services Page) */}
+        <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-300 mb-6 backdrop-blur-md shadow-sm">
+            <Building2 className="w-4 h-4" />
             The Healthcare Philosophy
           </div>
           
-          {/* RESPONSIVE MASSIVE TYPOGRAPHY (Exactly like Services Page) */}
-          <h1 className="text-[2.75rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8.5rem] font-black tracking-tighter leading-[1] md:leading-[0.88] mb-6 md:mb-10 text-white drop-shadow-2xl break-words w-full px-2">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-white drop-shadow-lg leading-tight">
             Dedicated To <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300 pr-2 pb-2 block md:inline">
-              Complete Recovery.
-            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">Complete Recovery.</span>
           </h1>
           
-          {/* SUBTITLE */}
-          <p className="text-blue-50/80 text-base sm:text-xl md:text-2xl max-w-3xl leading-relaxed md:leading-[1.7] font-medium px-4">
+          <p className="text-blue-50/80 text-base md:text-lg max-w-2xl leading-relaxed font-light">
             National Hospital & Neuro Center operates at the precise intersection of advanced medical technology and deep compassionate care. We are redefining multi-specialty treatment for the modern age.
           </p>
         </div>
