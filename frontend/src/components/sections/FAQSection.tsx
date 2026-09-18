@@ -52,7 +52,7 @@ export default function FAQSection() {
         
         {/* Accordion Section */}
         {/* @ts-ignore */}
-        <Accordion type="single" collapsible className="w-full space-y-6">
+        <Accordion type="single" collapsible={"true" as any} className="w-full">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
