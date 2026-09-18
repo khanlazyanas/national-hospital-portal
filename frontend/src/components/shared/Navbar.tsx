@@ -2,34 +2,42 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Menu, X, ArrowRight, ShieldPlus, ChevronRight, Phone } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ShieldPlus } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
-  // Scroll effect listener
+  // Advanced scroll detection for the premium dynamic pill effect
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 40); 
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Ensure menu closes strictly on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll when mobile menu is active
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
+    return () => { document.body.style.overflow = "unset"; };
   }, [isOpen]);
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
     { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
     { name: "Doctors", path: "/doctors" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
@@ -37,134 +45,224 @@ export default function Navbar() {
 
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out px-6 md:px-16 lg:px-24 text-white ${
-          scrolled 
-            ? "py-3 md:py-4 bg-[#020813]/85 backdrop-blur-2xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] border-b border-white/10" 
-            : "py-5 md:py-6 bg-transparent border-b border-transparent"
+      {/* ================= ELITE ANNOUNCEMENT BAR ================= */}
+      <div 
+        className={`fixed top-0 left-0 w-full z-[120] bg-[#020813] text-white overflow-hidden transition-all duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          scrolled ? "h-0 opacity-0 pointer-events-none" : "h-10 opacity-100"
         }`}
       >
-        <div className="flex items-center justify-between max-w-7xl mx-auto w-full">
+        <div className="container mx-auto h-full px-4 sm:px-6 lg:px-12 flex justify-between items-center text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em]">
           
-          {/* Premium Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group relative z-50">
-            <div className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.6)] transition-all duration-300">
-              <ShieldPlus className="w-5 h-5 text-white" />
+          {/* Left Side: System Branding */}
+          <div className="flex items-center gap-4 sm:gap-8">
+            <div className="flex items-center gap-2 sm:gap-3 group cursor-default">
+              <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-blue-500"></span>
+              </span>
+              <span className="text-slate-300 group-hover:text-white transition-colors duration-300">NABH Accredited Excellence</span>
             </div>
-            <span className="text-xl md:text-2xl font-extrabold tracking-tight text-white">
-              National <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">Hospital</span>
-            </span>
-          </Link>
+            <span className="hidden md:inline text-slate-600 border-l border-slate-700 pl-8 font-bold">Priority Medical Access</span>
+          </div>
 
-          {/* Desktop Links with Glowing Animated Underline */}
-          <div className="hidden lg:flex items-center gap-8 text-sm font-semibold">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                href={link.path} 
-                className="relative group py-2"
-              >
-                <span className="text-white/80 group-hover:text-white transition-colors duration-300 tracking-wide">
-                  {link.name}
+          {/* Right Side: Direct Terminal Contact */}
+          <div className="flex items-center gap-6">
+            <a href="tel:+918001234567" className="hover:text-blue-400 transition-colors duration-300 flex items-center gap-2 group">
+              <span className="text-slate-500 group-hover:text-blue-400 transition-colors hidden sm:inline">Direct Helpline:</span>
+              <span className="tracking-widest group-hover:tracking-[0.25em] transition-all duration-300">+91 800 123 4567</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= MAIN FLOATING HEADER (DYNAMIC PILL) ================= */}
+      <header 
+        className={`fixed left-0 w-full z-[110] transition-all duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          scrolled ? "top-4 sm:top-6" : "top-10"
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 max-w-[90rem]">
+          <nav 
+            className={`flex items-center justify-between transition-all duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] relative ${
+              scrolled 
+                ? "bg-white/90 backdrop-blur-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.15)] border border-slate-200/50 rounded-full px-4 sm:px-6 py-3 sm:py-3.5" 
+                : "bg-transparent border-transparent rounded-none px-2 py-6 sm:py-8"
+            }`}
+          >
+            
+            {/* Logo Section */}
+            <Link href="/" className="group flex items-center gap-3 sm:gap-4 relative z-[160] outline-none">
+              <div className="relative">
+                <div className={`flex items-center justify-center rounded-[1rem] shadow-[0_10px_20px_-10px_rgba(0,0,0,0.3)] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-rotate-6 group-hover:scale-105 ${
+                  scrolled ? "w-10 h-10 bg-[#0b2447] text-white group-hover:bg-blue-600" : "w-12 h-12 bg-white text-[#0b2447] group-hover:bg-blue-500 group-hover:text-white"
+                }`}>
+                  <ShieldPlus className={`transition-all duration-500 ${scrolled ? "w-5 h-5" : "w-6 h-6"}`} />
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <span className={`font-black tracking-tighter leading-none transition-all duration-500 ${
+                  isOpen ? 'text-white' : (scrolled ? 'text-[#0b2447]' : 'text-white')
+                } ${scrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'}`}>
+                  National<span className={isOpen ? 'text-blue-400' : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400'}>Hospital</span>
                 </span>
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-teal-300 transition-all duration-300 group-hover:w-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"></span>
-              </Link>
-            ))}
-          </div>
-
-          {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-5">
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 cursor-pointer transition-all duration-300 group">
-              <Search className="w-4 h-4 text-white/80 group-hover:text-white" />
-            </div>
-            <Link href="/contact">
-              <button className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 shadow-[0_0_20px_-5px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_-5px_rgba(37,99,235,0.6)] hover:scale-[1.02] group">
-                Appointment
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+                <span className={`font-black uppercase mt-1 transition-all duration-500 ${
+                  isOpen ? 'text-slate-500' : (scrolled ? 'text-slate-400' : 'text-white/60')
+                } ${
+                  scrolled ? 'text-[6px] tracking-[0.4em]' : 'text-[7px] tracking-[0.5em]'
+                }`}>
+                  Neuro Center
+                </span>
+              </div>
             </Link>
-          </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <button 
-            className="lg:hidden relative z-50 w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-xl transition-colors shadow-sm" 
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle Menu"
-          >
-            {isOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5" />}
-          </button>
+            {/* Desktop Navigation Links */}
+            <div className={`hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2 transition-all duration-700 ${
+              scrolled ? "bg-slate-100/60 border border-slate-200/60 p-1.5 rounded-full" : ""
+            }`}>
+              {navLinks.map((link) => {
+                const isActive = pathname === link.path;
+                return (
+                  <Link 
+                    key={link.name} 
+                    href={link.path} 
+                    className={`relative px-4 xl:px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden outline-none ${
+                      isActive 
+                        ? (scrolled ? "text-white shadow-md" : "text-[#0b2447] bg-white shadow-lg") 
+                        : (scrolled ? "text-slate-500 hover:text-[#0b2447]" : "text-white/80 hover:text-white")
+                    }`}
+                  >
+                    {isActive && scrolled && (
+                      <div className="absolute inset-0 bg-[#0b2447] rounded-full -z-10 shadow-md transition-all duration-500"></div>
+                    )}
+                    {!isActive && (
+                      <div className={`absolute inset-0 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-90 group-hover:scale-100 ${scrolled ? "bg-slate-200/50" : "bg-white/10"}`}></div>
+                    )}
+                    <span className="relative z-10">{link.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Action Cluster (CTA & Ultra-Premium Hamburger) */}
+            <div className="flex items-center gap-4 sm:gap-6 relative z-[160]">
+              <Link 
+                href="/appointment" 
+                className={`hidden md:flex group relative items-center justify-center rounded-xl shadow-[0_10px_20px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.4)] overflow-hidden transition-all duration-500 active:scale-95 outline-none ${
+                  scrolled ? "h-10 w-44" : "h-12 w-52"
+                }`}
+              >
+                {/* Dynamic Base Background */}
+                <div className={`absolute inset-0 transition-colors duration-500 ${scrolled ? "bg-[#0b2447]" : "bg-white"}`}></div>
+                {/* Swipe hover effect */}
+                <div className="absolute inset-0 bg-blue-600 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"></div>
+                
+                <div className={`relative font-black uppercase flex items-center gap-2 transition-all duration-300 group-hover:text-white ${
+                  scrolled ? "text-[8px] tracking-[0.2em] text-white" : "text-[9px] tracking-[0.3em] text-[#0b2447]"
+                }`}>
+                  Book Appointment
+                  <svg className="w-3 h-3 transform transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </div>
+              </Link>
+
+              {/* Ultra-Premium Hamburger Button */}
+              <button 
+                onClick={() => setIsOpen(!isOpen)} 
+                aria-label="Toggle Menu"
+                className={`relative w-12 h-12 lg:hidden rounded-2xl flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] outline-none ${
+                  isOpen 
+                  ? "bg-white/10" 
+                  : scrolled 
+                    ? "bg-slate-50 border border-slate-200 hover:bg-slate-100" 
+                    : "bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20"
+                }`}
+              >
+                <div className="flex flex-col items-center justify-center w-6 h-6 gap-1.5 relative">
+                  <span className={`block w-6 h-[2px] rounded-full transition-all duration-500 origin-center ${
+                    isOpen ? "absolute bg-white rotate-45" : (scrolled ? "bg-[#0b2447]" : "bg-white")
+                  }`}></span>
+                  <span className={`block w-6 h-[2px] rounded-full transition-all duration-300 ${
+                    isOpen ? "opacity-0 bg-white" : (scrolled ? "bg-[#0b2447]" : "bg-white")
+                  }`}></span>
+                  <span className={`block w-6 h-[2px] rounded-full transition-all duration-500 origin-center ${
+                    isOpen ? "absolute bg-white -rotate-45" : (scrolled ? "bg-[#0b2447]" : "bg-white")
+                  }`}></span>
+                </div>
+              </button>
+            </div>
+
+          </nav>
         </div>
-      </nav>
+      </header>
 
-      {/* Mobile Professional Side Drawer (Replaces Full-Screen Menu) */}
-      
-      {/* Background Overlay */}
+      {/* ================= REFINED MOBILE OVERLAY (FULL SCREEN MATRIX) ================= */}
       <div 
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-500 lg:hidden ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setIsOpen(false)}
-      />
-
-      {/* Drawer Panel */}
-      <div 
-        className={`fixed top-0 right-0 h-[100dvh] w-[85%] max-w-[360px] bg-[#020813]/95 backdrop-blur-3xl z-50 border-l border-white/10 shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col lg:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-0 z-[150] lg:hidden transition-all duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Drawer Header / Logo Area */}
-        <div className="flex items-center justify-between p-6 border-b border-white/5">
-          <span className="text-white/50 font-bold tracking-widest text-[10px] uppercase">Navigation</span>
-          <button 
-            onClick={() => setIsOpen(false)}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Drawer Links */}
-        <div className="flex-1 overflow-y-auto py-6 px-6 flex flex-col gap-2">
-          {navLinks.map((link, index) => (
-            <Link 
-              key={link.name}
-              href={link.path} 
-              onClick={() => setIsOpen(false)} 
-              className={`flex items-center justify-between w-full p-4 rounded-2xl text-lg font-bold text-white/80 hover:text-white hover:bg-white/5 transition-all duration-300 ${
-                isOpen ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
-              }`}
-              style={{ transitionDelay: `${isOpen ? index * 50 : 0}ms` }}
-            >
-              {link.name}
-              <ChevronRight className="w-4 h-4 text-blue-500" />
-            </Link>
-          ))}
-        </div>
-
-        {/* Drawer Footer / Emergency Action */}
-        <div 
-          className={`p-6 border-t border-white/5 bg-gradient-to-t from-blue-900/20 to-transparent transition-all duration-500 delay-300 ${
-            isOpen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-          }`}
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-400 border border-blue-500/20">
-              <Phone className="w-5 h-5" />
+        {/* Dark Background with subtle blur/gradient */}
+        <div className={`absolute inset-0 bg-[#020813] transition-transform duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          isOpen ? "translate-y-0" : "-translate-y-full"
+        }`}>
+            <div className="absolute bottom-0 right-0 w-[150vw] h-[150vw] bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-blue-600/15 via-transparent to-transparent opacity-80 pointer-events-none translate-x-1/4 translate-y-1/4"></div>
+            <div className="absolute top-1/4 left-0 w-full h-full opacity-[0.02] text-white font-black text-[22vw] leading-none select-none pointer-events-none flex items-center justify-center -rotate-12">
+              HOSPITAL
             </div>
-            <div>
-              <p className="text-white/50 text-xs font-bold uppercase tracking-wider mb-0.5">24/7 Emergency</p>
-              <p className="text-white font-extrabold">+91 800 123 4567</p>
+        </div>
+
+        {/* Menu Content */}
+        <div className="relative h-full flex flex-col justify-between p-8 sm:p-12 overflow-y-auto pt-32 pb-12">
+          
+          <div className="space-y-10 sm:space-y-12">
+            <div className="flex items-center gap-4 transition-all duration-700 delay-300" style={{ opacity: isOpen ? 1 : 0, transform: isOpen ? 'translateY(0)' : 'translateY(20px)' }}>
+              <div className="w-8 h-[2px] bg-blue-500"></div>
+              <p className="text-blue-400 font-black uppercase tracking-[0.5em] text-[9px] sm:text-[10px]">Navigation Matrix</p>
+            </div>
+            
+            <div className="flex flex-col gap-6 sm:gap-8">
+              {navLinks.map((link, i) => (
+                <Link 
+                  key={link.name} 
+                  href={link.path} 
+                  className="group relative inline-block w-max outline-none"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span 
+                    className={`text-4xl sm:text-5xl md:text-6xl font-black text-slate-300 group-hover:text-white tracking-tighter block transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
+                      isOpen ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
+                    }`}
+                    style={{ transitionDelay: `${isOpen ? i * 80 + 400 : 0}ms` }}
+                  >
+                    {link.name}
+                  </span>
+                  <div className="absolute -bottom-2 left-0 w-0 h-[3px] bg-blue-500 transition-all duration-500 ease-out group-hover:w-full"></div>
+                </Link>
+              ))}
             </div>
           </div>
-          
-          <Link 
-            href="/contact" 
-            onClick={() => setIsOpen(false)}
-            className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-4 text-sm font-bold rounded-xl shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] active:scale-95 transition-all"
-          >
-            Book Appointment
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+
+          <div className={`transition-all duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] transform mt-16 ${
+            isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+          }`} style={{ transitionDelay: isOpen ? '800ms' : '0ms' }}>
+            
+            <Link 
+              href="/appointment" 
+              onClick={() => setIsOpen(false)}
+              className="group flex items-center justify-between w-full bg-white text-[#0b2447] p-3 pl-8 sm:p-4 sm:pl-10 rounded-[1.5rem] hover:bg-blue-600 hover:text-white transition-all duration-500 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] outline-none active:scale-[0.98]"
+            >
+              <span className="font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-[11px]">Book Appointment</span>
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0b2447] rounded-full flex items-center justify-center text-white group-hover:scale-95 transition-transform duration-500 shadow-md">
+                 <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              </div>
+            </Link>
+            
+            <div className="flex justify-center gap-10 mt-12 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
+              <a href="#" className="hover:text-white hover:tracking-[0.4em] transition-all duration-500 outline-none">Instagram</a>
+              <a href="#" className="hover:text-white hover:tracking-[0.4em] transition-all duration-500 outline-none">LinkedIn</a>
+              <a href="#" className="hover:text-white hover:tracking-[0.4em] transition-all duration-500 outline-none">Twitter</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </>
