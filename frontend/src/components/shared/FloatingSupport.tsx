@@ -25,21 +25,21 @@ export default function FloatingSupport() {
           isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-10 pointer-events-none"
         }`}
       >
-        <div className="w-[calc(100vw-3rem)] sm:w-80 md:w-[380px] bg-[#020813]/95 backdrop-blur-2xl rounded-[2rem] border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative group">
+        <div className="w-[calc(100vw-3rem)] sm:w-80 md:w-96 bg-[#020813]/95 backdrop-blur-2xl rounded-[2rem] border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative group">
           
-          {/* Subtle Background Glow (Teal) */}
-          <div className="absolute top-[-20%] right-[-20%] w-40 h-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/20 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+          {/* Subtle Background Glow */}
+          <div className="absolute top-[-20%] right-[-20%] w-40 h-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#10b9bd]/20 to-transparent rounded-full blur-2xl pointer-events-none"></div>
 
           {/* Header */}
           <div className="px-6 py-5 border-b border-white/5 flex items-center justify-between relative z-10 bg-white/5">
             <div className="flex items-center gap-3">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b9bd] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#10b9bd]"></span>
               </span>
               <div>
                 <h4 className="text-white text-[10px] sm:text-xs font-black uppercase tracking-widest leading-none mb-1">Clinical Support Node</h4>
-                <p className="text-teal-400 text-[8px] font-bold uppercase tracking-[0.3em] leading-none">System Online</p>
+                <p className="text-[#10b9bd] text-[8px] font-bold uppercase tracking-[0.3em] leading-none">System Online</p>
               </div>
             </div>
             <button 
@@ -53,7 +53,7 @@ export default function FloatingSupport() {
           {/* Body / Message */}
           <div className="p-6 relative z-10">
             <div className="bg-[#0b2447]/50 border border-white/5 rounded-2xl rounded-tl-none p-4 mb-6 shadow-sm backdrop-blur-sm">
-              <p className="text-blue-50/80 text-sm font-medium leading-relaxed">
+              <p className="text-blue-50/90 text-sm font-medium leading-relaxed">
                 Welcome to National Hospital. Connect with our clinical team to initiate your medical consultation process.
               </p>
               <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-3 text-right">Automated Dispatch</p>
@@ -65,7 +65,7 @@ export default function FloatingSupport() {
                 href="https://wa.me/918001234567?text=Hello,%20I%20would%20like%20to%20book%20an%20appointment." 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative flex items-center justify-center w-full bg-[#14b8a6] text-[#020813] py-3.5 sm:py-4 rounded-xl font-black uppercase tracking-widest text-[9px] sm:text-[10px] overflow-hidden transition-all duration-300 hover:shadow-[0_10px_20px_-5px_rgba(20,184,166,0.4)] active:scale-[0.98] outline-none"
+                className="group relative flex items-center justify-center w-full bg-[#10b9bd] text-[#020813] py-3.5 sm:py-4 rounded-xl font-black uppercase tracking-widest text-[9px] sm:text-[10px] overflow-hidden transition-all duration-300 hover:shadow-[0_10px_20px_-5px_rgba(16,185,189,0.4)] active:scale-[0.98] outline-none"
               >
                 <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                 <span className="relative z-10 flex items-center gap-2">
@@ -92,15 +92,15 @@ export default function FloatingSupport() {
       {/* ================= TOGGLE BUTTON (THE NODE) ================= */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="pointer-events-auto relative group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-[1.2rem] sm:rounded-[1.5rem] shadow-[0_15px_30px_-5px_rgba(20,184,166,0.4)] hover:shadow-[0_20px_40px_-5px_rgba(20,184,166,0.6)] transition-all duration-500 hover:-translate-y-1 active:scale-95 outline-none"
+        className="pointer-events-auto relative group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-[1.2rem] sm:rounded-[1.5rem] shadow-[0_15px_30px_-5px_rgba(16,185,189,0.4)] hover:shadow-[0_20px_40px_-5px_rgba(16,185,189,0.6)] transition-all duration-500 hover:-translate-y-1 active:scale-95 outline-none"
       >
         {/* Background Layers */}
         <div className="absolute inset-0 bg-[#020813] border border-white/20 rounded-[1.2rem] sm:rounded-[1.5rem] transition-colors duration-500"></div>
-        <div className={`absolute inset-0 bg-[#14b8a6] rounded-[1.2rem] sm:rounded-[1.5rem] transition-opacity duration-500 ${isOpen ? "opacity-0" : "opacity-100"}`}></div>
+        <div className={`absolute inset-0 bg-[#10b9bd] rounded-[1.2rem] sm:rounded-[1.5rem] transition-opacity duration-500 ${isOpen ? "opacity-0" : "opacity-100"}`}></div>
         
-        {/* Soft Ping Animation behind button when closed (The professional blink) */}
+        {/* Ping Animation behind button when closed */}
         {!isOpen && (
-          <div className="absolute inset-0 rounded-[1.2rem] sm:rounded-[1.5rem] bg-[#14b8a6] animate-ping opacity-20 pointer-events-none"></div>
+          <div className="absolute inset-0 rounded-[1.2rem] sm:rounded-[1.5rem] bg-[#10b9bd] animate-ping opacity-30 pointer-events-none"></div>
         )}
 
         {/* Icons */}
@@ -117,7 +117,7 @@ export default function FloatingSupport() {
           
           {/* X Icon (shows when open) */}
           <svg 
-            className={`absolute w-6 h-6 sm:w-7 sm:h-7 text-white transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+            className={`absolute w-6 h-6 sm:w-7 sm:h-7 text-[#10b9bd] transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] ${
               isOpen ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-50 rotate-90"
             }`} 
             fill="none" stroke="currentColor" viewBox="0 0 24 24"
