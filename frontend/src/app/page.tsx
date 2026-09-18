@@ -7,6 +7,7 @@ import FAQSection from "@/components/sections/FAQSection";
 import AppointmentCTA from "@/components/sections/AppointmentCTA";
 import Footer from "@/components/shared/Footer";
 import { Phone, MessageCircle, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -31,8 +32,8 @@ export default function Home() {
           <Navbar />
         </div>
 
-        {/* Main Content - FIXED SPACING (Added mt-32 md:mt-40) */}
-        <div className="relative z-20 px-6 md:px-16 lg:px-24 mt-32 md:mt-40 text-white w-full max-w-6xl pb-32 md:pb-0">
+        {/* Main Content - ADJUSTED SPACING FOR DYNAMIC NAV (mt-32 md:mt-48) */}
+        <div className="relative z-20 px-6 md:px-16 lg:px-24 mt-32 md:mt-48 text-white w-full max-w-6xl pb-32 md:pb-0">
           
           {/* Trust Badge - Frosted Glass Effect */}
           <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-xl text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-100 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] mb-8">
@@ -53,13 +54,13 @@ export default function Home() {
           
           {/* CTA Buttons - High Contrast & Glow Effects */}
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md md:max-w-none">
-            <button className="relative group overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 text-sm font-bold rounded-xl shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)] border border-blue-400/50 hover:scale-[1.02] transition-all duration-300 w-full sm:w-auto text-center">
+            <Link href="/appointment" className="relative group overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 text-sm font-bold rounded-xl shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)] border border-blue-400/50 hover:scale-[1.02] transition-all duration-300 w-full sm:w-auto text-center block">
               <span className="relative z-10">Book an Appointment</span>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-            <button className="bg-white/5 backdrop-blur-md border border-white/20 text-white px-8 py-4 text-sm font-bold rounded-xl hover:bg-white/10 hover:border-white/40 transition-all duration-300 w-full sm:w-auto text-center">
+            </Link>
+            <Link href="/services" className="bg-white/5 backdrop-blur-md border border-white/20 text-white px-8 py-4 text-sm font-bold rounded-xl hover:bg-white/10 hover:border-white/40 transition-all duration-300 w-full sm:w-auto text-center block">
               Explore Departments
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -80,9 +81,9 @@ export default function Home() {
               {/* Emergency Action */}
               <div className="flex flex-col items-center gap-1.5 group cursor-pointer w-1/2 md:w-auto">
                 <span className="bg-red-500/20 border border-red-500/50 text-red-200 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">24/7 Emergency</span>
-                <button className="bg-gradient-to-t from-red-600 to-red-500 text-white w-full md:w-auto px-5 py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-lg group-hover:shadow-red-500/30 transition-all">
+                <a href="tel:+918001234567" className="bg-gradient-to-t from-red-600 to-red-500 text-white w-full md:w-auto px-5 py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-lg group-hover:shadow-red-500/30 transition-all">
                   <Phone className="w-3.5 h-3.5" /> Ambulance
-                </button>
+                </a>
               </div>
               
               {/* Online Consult Action */}
@@ -90,9 +91,9 @@ export default function Home() {
                 <span className="bg-green-500/20 border border-green-500/50 text-green-200 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> Online Consult
                 </span>
-                <button className="bg-gradient-to-t from-green-600 to-green-500 text-white w-full md:w-auto px-6 py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-lg group-hover:shadow-green-500/30 transition-all">
+                <a href="#" className="bg-gradient-to-t from-green-600 to-green-500 text-white w-full md:w-auto px-6 py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 shadow-lg group-hover:shadow-green-500/30 transition-all">
                   <MessageCircle className="w-4 h-4" /> WhatsApp
-                </button>
+                </a>
               </div>
             </div>
 
@@ -119,9 +120,9 @@ export default function Home() {
           <p className="text-xl md:text-2xl font-bold leading-tight mb-6 text-[#0b2447]">
             Trusted specialists united by one purpose — delivering compassionate, life-saving healthcare.
           </p>
-          <button className="bg-[#0b2447] text-white px-8 py-3.5 text-xs font-bold rounded-lg hover:bg-blue-600 transition-colors shadow-[0_10px_20px_-10px_rgba(11,36,71,0.5)]">
+          <Link href="/doctors" className="inline-block bg-[#0b2447] text-white px-8 py-3.5 text-xs font-bold rounded-lg hover:bg-blue-600 transition-colors shadow-[0_10px_20px_-10px_rgba(11,36,71,0.5)]">
             Meet Our Doctors
-          </button>
+          </Link>
         </div>
       </section>
 
