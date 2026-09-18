@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-surfaceWhite">
+    <main className="min-h-screen bg-surfaceWhite overflow-x-hidden">
       {/* Hero Section - Visually Upgraded for Dynamic Navbar */}
       <section className="relative w-full min-h-[100dvh] flex flex-col justify-center overflow-hidden">
         
@@ -36,29 +36,29 @@ export default function Home() {
         </div>
 
         {/* Main Content - Noticeable Visual Upgrade */}
-        <div className="relative z-20 px-6 md:px-16 lg:px-24 pt-40 md:pt-52 text-white w-full max-w-7xl pb-32 md:pb-0 flex flex-col lg:flex-row items-center lg:items-start justify-between">
+        <div className="relative z-20 px-4 sm:px-6 md:px-16 lg:px-24 pt-40 md:pt-52 text-white w-full max-w-[90rem] pb-32 md:pb-0 flex flex-col lg:flex-row items-center lg:items-start justify-between mx-auto">
           
           {/* Left Text Content */}
-          <div className="w-full lg:w-2/3">
+          <div className="w-full lg:w-[65%]">
             {/* Trust Badge - Frosted Glass Effect */}
-            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-blue-400/30 bg-blue-900/30 backdrop-blur-xl text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-200 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] mb-8">
-              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_10px_rgba(45,212,191,0.8)]"></span>
+            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-blue-400/30 bg-blue-900/30 backdrop-blur-xl text-[9px] sm:text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-blue-200 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] mb-6 md:mb-8">
+              <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_10px_rgba(45,212,191,0.8)]"></span>
               Premier Neurology & Multispecialty Care
             </div>
             
-            {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter leading-[1.05] text-white drop-shadow-2xl mb-6">
+            {/* Premium Massive Headline (Fully Responsive) */}
+            <h1 className="text-[2.75rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[7rem] xl:text-[8rem] font-black tracking-tighter leading-[1] md:leading-[0.88] text-white drop-shadow-2xl mb-6 md:mb-8 break-words w-full">
               Advanced Medical &<br className="hidden md:block" /> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-blue-200"> Neurological Excellence.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-blue-200 block md:inline mt-2 md:mt-0"> Neurological Excellence.</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-sm md:text-lg text-blue-50/80 max-w-2xl mb-10 leading-relaxed font-medium">
+            <p className="text-base sm:text-lg md:text-xl text-blue-50/80 max-w-2xl mb-8 md:mb-10 leading-relaxed font-medium">
               At National Hospital & Neuro Center, we combine state-of-the-art technology with compassionate care to deliver world-class medical treatments tailored to your health.
             </p>
             
             {/* CTA Buttons - High Contrast & Glow Effects */}
-            <div className="flex flex-col sm:flex-row gap-5 w-full max-w-md md:max-w-none">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 w-full max-w-md md:max-w-none">
               <Link href="/appointment" className="relative group overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 text-sm font-bold rounded-xl shadow-[0_0_40px_-10px_rgba(37,99,235,0.6)] border border-blue-400/50 hover:scale-[1.02] transition-all duration-300 w-full sm:w-auto text-center flex items-center justify-center gap-2">
                 <span className="relative z-10">Book an Appointment</span>
                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -70,9 +70,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side Floating Element (New Addition for visual balance) */}
-          <div className="hidden lg:flex w-1/3 justify-end pt-12">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-500">
+          {/* Right Side Floating Element */}
+          <div className="hidden lg:flex w-[35%] justify-end pt-12">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-500 max-w-xs">
               <div className="flex items-center gap-4 mb-4">
                 <div className="flex -space-x-3">
                   <div className="w-10 h-10 rounded-full border-2 border-[#0b2447] bg-gray-200 overflow-hidden"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=100" alt="Doc" /></div>
@@ -90,10 +90,10 @@ export default function Home() {
         </div>
 
         {/* Bottom Floating Dock (Apple-style Glassmorphism for Actions) */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] md:w-auto z-30">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] md:w-auto z-30">
           <div className="flex flex-col md:flex-row items-center justify-between md:justify-center gap-4 md:gap-8 bg-white/10 backdrop-blur-2xl border border-white/20 px-6 py-4 rounded-3xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]">
             
-            Accreditation / Trust Symbol
+            {/* Accreditation Badge */}
             <div className="hidden md:flex items-center gap-2 pr-8 border-r border-white/20">
               <ShieldCheck className="w-5 h-5 text-blue-400" />
               <div className="flex flex-col text-left">
