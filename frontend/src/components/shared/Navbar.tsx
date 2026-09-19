@@ -41,6 +41,7 @@ export default function Navbar() {
     { name: "Doctors", path: "/doctors" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
+    { name: "Accreditations", path: "/accreditations" },
   ];
 
   return (
@@ -115,8 +116,8 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <div className={`hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2 transition-all duration-700 ${
+            {/* Desktop Navigation Links (Padding adjusted to fit all 7 links cleanly) */}
+            <div className={`hidden lg:flex items-center gap-0.5 xl:gap-1 absolute left-1/2 -translate-x-1/2 transition-all duration-700 ${
               scrolled ? "bg-slate-100/60 border border-slate-200/60 p-1.5 rounded-full" : ""
             }`}>
               {navLinks.map((link) => {
@@ -125,7 +126,7 @@ export default function Navbar() {
                   <Link 
                     key={link.name} 
                     href={link.path} 
-                    className={`relative px-4 xl:px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 group overflow-hidden outline-none ${
+                    className={`relative px-3 xl:px-4 py-2.5 rounded-full text-[9px] xl:text-[10px] font-black uppercase tracking-[0.15em] xl:tracking-[0.2em] transition-all duration-300 group overflow-hidden outline-none ${
                       isActive 
                         ? (scrolled ? "text-white shadow-md" : "text-[#0b2447] bg-white shadow-lg") 
                         : (scrolled ? "text-slate-500 hover:text-[#0b2447]" : "text-white/80 hover:text-white")
@@ -148,7 +149,7 @@ export default function Navbar() {
               <Link 
                 href="/appointment" 
                 className={`hidden md:flex group relative items-center justify-center rounded-xl shadow-[0_10px_20px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.4)] overflow-hidden transition-all duration-500 active:scale-95 outline-none ${
-                  scrolled ? "h-10 w-44" : "h-12 w-52"
+                  scrolled ? "h-10 w-40 xl:w-44" : "h-12 w-48 xl:w-52"
                 }`}
               >
                 {/* Dynamic Base Background */}
@@ -156,8 +157,8 @@ export default function Navbar() {
                 {/* Swipe hover effect */}
                 <div className="absolute inset-0 bg-blue-600 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"></div>
                 
-                <div className={`relative font-black uppercase flex items-center gap-2 transition-all duration-300 group-hover:text-white ${
-                  scrolled ? "text-[8px] tracking-[0.2em] text-white" : "text-[9px] tracking-[0.3em] text-[#0b2447]"
+                <div className={`relative font-black uppercase flex items-center gap-1.5 xl:gap-2 transition-all duration-300 group-hover:text-white ${
+                  scrolled ? "text-[7px] xl:text-[8px] tracking-[0.15em] xl:tracking-[0.2em] text-white" : "text-[8px] xl:text-[9px] tracking-[0.2em] xl:tracking-[0.3em] text-[#0b2447]"
                 }`}>
                   Book Appointment
                   <svg className="w-3 h-3 transform transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
