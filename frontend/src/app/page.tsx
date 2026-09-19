@@ -89,42 +89,7 @@ export default function Home() {
         </div>
 
         {/* Bottom Floating Items */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] md:w-auto z-30">
-          <div className="flex flex-col md:flex-row items-center justify-between md:justify-center gap-4 md:gap-8 px-6 py-4">
-            
-            {/* Accreditation Badge */}
-            <div className="hidden md:flex items-center gap-3 pr-8 border-r border-white/10">
-              <div className="w-10 h-10 rounded-full bg-blue-900/40 border border-blue-500/30 flex items-center justify-center backdrop-blur-md">
-                <ShieldCheck className="w-5 h-5 text-blue-400" />
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-white text-xs font-bold tracking-wider">NABH ACCREDITED</span>
-                <span className="text-white/60 text-[10px] uppercase">ISO 13485 Certified</span>
-              </div>
-            </div>
-
-            <div className="flex w-full md:w-auto justify-between md:justify-center gap-4 md:gap-8">
-              {/* Emergency Action */}
-              <div className="flex flex-col items-center gap-1.5 group cursor-pointer w-1/2 md:w-auto">
-                <span className="bg-red-500/20 border border-red-500/50 text-red-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider backdrop-blur-md">24/7 Emergency</span>
-                <a href="tel:+918001234567" className="bg-gradient-to-t from-red-600 to-red-500 text-white w-full md:w-auto px-6 py-3 rounded-full text-sm font-bold flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(239,68,68,0.3)] hover:shadow-[0_15px_30px_rgba(239,68,68,0.5)] hover:-translate-y-0.5 transition-all">
-                  <Phone className="w-4 h-4" /> Ambulance
-                </a>
-              </div>
-              
-              {/* Online Consult Action */}
-              <div className="flex flex-col items-center gap-1.5 group cursor-pointer w-1/2 md:w-auto">
-                <span className="bg-green-500/20 border border-green-500/50 text-green-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5 backdrop-blur-md">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> Online Consult
-                </span>
-                <a href="#" className="bg-[#14b8a6] hover:bg-teal-400 text-white w-full md:w-auto px-6 py-3 rounded-full text-sm font-bold flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(20,184,166,0.3)] hover:shadow-[0_15px_30px_rgba(20,184,166,0.5)] hover:-translate-y-0.5 transition-all">
-                  <MessageCircle className="w-4 h-4" /> WhatsApp
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
+       
       </section>
 
       {/* Premium Stats Section */}
