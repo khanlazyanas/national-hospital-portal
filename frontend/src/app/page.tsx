@@ -8,6 +8,7 @@ import AppointmentCTA from "@/components/sections/AppointmentCTA";
 import Footer from "@/components/shared/Footer";
 import { Phone, MessageCircle, ShieldCheck, ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
+import AccreditationsSection from "@/components/sections/AccreditationsSection";
 
 export default function Home() {
   return (
@@ -123,6 +124,7 @@ export default function Home() {
       <TestimonialsSection />
       <FAQSection />
       <AppointmentCTA />
+      <AccreditationsSection/>
       <Footer />
     </main>
   );
