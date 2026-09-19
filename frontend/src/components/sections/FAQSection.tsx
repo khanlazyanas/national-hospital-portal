@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HelpCircle, MessageSquarePlus, ArrowRight, PhoneCall } from "lucide-react";
+import { HelpCircle, MessageSquarePlus, ArrowRight, PhoneCall, Plus } from "lucide-react";
 import Link from "next/link";
 
 const faqs = [
@@ -31,7 +31,7 @@ export default function FAQSection() {
     <section className="relative w-full py-24 md:py-32 px-4 sm:px-6 md:px-16 lg:px-24 bg-[#fafafa] overflow-hidden">
       
       {/* Ultra-Premium Subtle Dot Matrix Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-60 z-0"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-60 z-0 pointer-events-none"></div>
       
       {/* Premium Decorative Ambient Glows */}
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 -translate-x-1/3 mix-blend-multiply z-0"></div>
@@ -54,19 +54,24 @@ export default function FAQSection() {
           </p>
         </div>
         
-        {/* Accordion Section - Floating Cards */}
+        {/* Accordion Section - Floating Cards with Motion Plus Button */}
         {/* @ts-ignore */}
         <Accordion type="single" collapsible={"true" as any} className="w-full space-y-4 md:space-y-6">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`item-${index}`} 
-              className="group bg-white border border-slate-200/80 rounded-[1.5rem] md:rounded-[2rem] px-6 md:px-10 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_40px_-10px_rgba(37,99,235,0.08)] data-[state=open]:border-teal-500/30 data-[state=open]:bg-gradient-to-br data-[state=open]:from-white data-[state=open]:to-teal-50/30 data-[state=open]:shadow-[0_25px_50px_-15px_rgba(20,184,166,0.15)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden"
+              className="group relative bg-white border border-slate-200/80 rounded-[1.5rem] md:rounded-[2rem] px-6 md:px-10 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_40px_-10px_rgba(37,99,235,0.08)] data-[state=open]:border-teal-500/30 data-[state=open]:bg-gradient-to-br data-[state=open]:from-white data-[state=open]:to-teal-50/30 data-[state=open]:shadow-[0_25px_50px_-15px_rgba(20,184,166,0.15)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden"
             >
-              <AccordionTrigger className="text-left text-xl md:text-2xl font-black text-[#0f172a] tracking-tight group-data-[state=open]:text-teal-600 hover:text-blue-600 hover:no-underline transition-colors duration-300 py-6 md:py-8 outline-none">
-                {faq.question}
+              <AccordionTrigger className="flex items-center justify-between w-full text-left text-xl md:text-2xl font-black text-[#0f172a] tracking-tight group-data-[state=open]:text-teal-600 hover:text-blue-600 hover:no-underline transition-colors duration-300 py-6 md:py-8 outline-none [&[data-state=open]>div>svg]:rotate-45 [&[data-state=open]>div]:bg-teal-500 [&[data-state=open]>div]:text-white [&[data-state=open]>div]:border-teal-500">
+                <span className="pr-8">{faq.question}</span>
+                
+                {/* Premium Animated Plus Button */}
+                <div className="shrink-0 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full border border-slate-200 bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:border-blue-200 transition-all duration-500 shadow-sm">
+                  <Plus className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]" />
+                </div>
               </AccordionTrigger>
-              <AccordionContent className="text-slate-500 leading-relaxed text-base md:text-lg pb-8 font-medium max-w-3xl">
+              <AccordionContent className="text-slate-500 leading-relaxed text-base md:text-lg pb-8 font-medium max-w-3xl pr-12">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -74,13 +79,13 @@ export default function FAQSection() {
         </Accordion>
 
         {/* Premium Mini CTA Card for unresolved queries */}
-        <div className="mt-24 relative bg-white border border-slate-200/80 rounded-[2.5rem] p-8 md:p-12 lg:p-14 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden">
+        <div className="mt-24 relative bg-white border border-slate-200/80 rounded-[2.5rem] p-8 md:p-12 lg:p-14 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden group hover:shadow-[0_30px_70px_-15px_rgba(37,99,235,0.1)] transition-all duration-500">
           
           {/* Internal Soft Glow */}
-          <div className="absolute top-0 right-0 w-72 h-72 bg-blue-600/5 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+          <div className="absolute top-0 right-0 w-72 h-72 bg-blue-600/5 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/3 transition-all duration-700 group-hover:bg-teal-500/5"></div>
 
           <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 md:gap-8 z-10 w-full md:w-auto">
-            <div className="w-20 h-20 bg-blue-50/80 rounded-3xl flex items-center justify-center shrink-0 shadow-sm border border-blue-100/50">
+            <div className="w-20 h-20 bg-blue-50/80 rounded-3xl flex items-center justify-center shrink-0 shadow-sm border border-blue-100/50 group-hover:scale-105 transition-transform duration-500">
               <MessageSquarePlus className="w-10 h-10 text-blue-600" />
             </div>
             <div>
@@ -98,9 +103,13 @@ export default function FAQSection() {
             </Link>
             <Link 
               href="/contact"
-              className="group w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0b2447] text-white px-8 py-4 rounded-xl text-[11px] font-black uppercase tracking-widest shadow-[0_10px_20px_-10px_rgba(11,36,71,0.5)] hover:bg-teal-500 hover:shadow-[0_15px_30px_-10px_rgba(20,184,166,0.5)] transition-all duration-300 outline-none active:scale-95"
+              className="relative overflow-hidden w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0b2447] text-white px-8 py-4 rounded-xl text-[11px] font-black uppercase tracking-widest shadow-[0_10px_20px_-10px_rgba(11,36,71,0.5)] hover:shadow-[0_15px_30px_-10px_rgba(20,184,166,0.5)] transition-all duration-300 outline-none active:scale-95 group/btn"
             >
-              Contact Us <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform ease-[cubic-bezier(0.19,1,0.22,1)]" />
+              {/* Subtle hover gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0b2447] to-teal-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+              <span className="relative z-10 flex items-center gap-2">
+                Contact Us <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform ease-[cubic-bezier(0.19,1,0.22,1)]" />
+              </span>
             </Link>
           </div>
         </div>
