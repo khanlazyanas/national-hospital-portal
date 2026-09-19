@@ -10,6 +10,7 @@ import { Phone, MessageCircle, ShieldCheck, ArrowRight, Star } from "lucide-reac
 import Link from "next/link";
 import AccreditationsSection from "@/components/sections/AccreditationsSection";
 import FacilityTourSection from "@/components/sections/FacilityTourSection";
+import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
 
 export default function Home() {
   return (
@@ -127,6 +128,7 @@ export default function Home() {
       <AppointmentCTA />
       <FacilityTourSection />
       <AccreditationsSection/>
+      <WhyChooseUsSection />
       <Footer />
     </main>
   );
