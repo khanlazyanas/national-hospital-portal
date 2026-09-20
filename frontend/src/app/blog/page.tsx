@@ -1,10 +1,14 @@
+"use client";
+
+import React, { useState, useRef } from "react";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, User, ArrowRight, BookOpen, Search, Filter } from "lucide-react";
+import { Calendar, User, ArrowRight, BookOpen, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-const blogPosts = [
+// Expanded dummy data to demonstrate working pagination (9 posts total)
+const allBlogPosts = [
   {
     title: "10 Warning Signs of Neurological Issues You Shouldn't Ignore",
     category: "Neurology",
@@ -52,10 +56,55 @@ const blogPosts = [
     author: "Dr. Hannibal Lecter",
     date: "Aug 15, 2026",
     image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    title: "Nutrition: The Role of Diet in Neurological Health",
+    category: "Neurology",
+    excerpt: "Discover how brain-boosting foods can improve cognitive function and protect against neurodegenerative diseases.",
+    author: "Dr. Sarah Connor",
+    date: "Aug 02, 2026",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    title: "Preventive Care: Why Annual Checkups Are Crucial",
+    category: "General Health",
+    excerpt: "Don't wait until you're sick. Preventive screenings can catch potential health issues before they become serious.",
+    author: "Dr. James Wilson",
+    date: "Jul 28, 2026",
+    image: "https://images.unsplash.com/photo-1576091160550-2173ff9e5eb3?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    title: "Understanding Sleep Apnea and Its Effects on Heart",
+    category: "Cardiology",
+    excerpt: "Exploring the hidden links between chronic sleep disorders and cardiovascular complications.",
+    author: "Dr. Robert Banner",
+    date: "Jul 15, 2026",
+    image: "https://images.unsplash.com/photo-1511295742362-92c96b5ade36?auto=format&fit=crop&q=80&w=800"
   }
 ];
 
 export default function BlogPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Pagination Logic
+  const totalPages = Math.ceil(allBlogPosts.length / postsPerPage);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = allBlogPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // Smooth scroll to top of the grid when page changes
+    if (gridRef.current) {
+      window.scrollTo({
+        top: gridRef.current.offsetTop - 150,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       <Navbar />
@@ -95,7 +144,7 @@ export default function BlogPage() {
       </section>
 
       {/* Main Content Layout with 3D Overlap Effect */}
-      <div className="relative z-20 -mt-12 md:-mt-20 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto mb-24">
+      <div className="relative z-20 -mt-12 md:-mt-20 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto mb-24" ref={gridRef}>
         
         {/* Floating Search & Filter Bar */}
         <div className="bg-white/90 backdrop-blur-xl border border-gray-100 p-4 md:p-6 rounded-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] flex flex-col md:flex-row justify-between items-center gap-4 mb-12">
@@ -125,7 +174,7 @@ export default function BlogPage() {
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
+          {currentPosts.map((post, index) => (
             <Card key={index} className="group relative border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(37,99,235,0.12)] transition-all duration-500 rounded-[2rem] overflow-hidden bg-white flex flex-col transform hover:-translate-y-2 cursor-pointer">
               
               {/* Image Container */}
@@ -164,12 +213,43 @@ export default function BlogPage() {
           ))}
         </div>
         
-        {/* Premium Pagination */}
-        <div className="flex justify-center mt-16 gap-3">
-          <button className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)]">1</button>
-          <button className="w-12 h-12 rounded-2xl bg-white border border-gray-100 text-gray-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 font-bold flex items-center justify-center transition-all shadow-sm">2</button>
-          <button className="w-12 h-12 rounded-2xl bg-white border border-gray-100 text-gray-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 font-bold flex items-center justify-center transition-all shadow-sm">3</button>
-        </div>
+        {/* Dynamic & Functional Premium Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-16 gap-3">
+            {/* Previous Button */}
+            <button 
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="w-12 h-12 rounded-2xl bg-white border border-gray-100 text-gray-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 flex items-center justify-center transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-100 disabled:hover:text-gray-400 outline-none"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Page Numbers */}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+              <button 
+                key={number}
+                onClick={() => handlePageChange(number)}
+                className={`w-12 h-12 rounded-2xl font-bold flex items-center justify-center transition-all outline-none ${
+                  currentPage === number 
+                    ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)]" 
+                    : "bg-white border border-gray-100 text-gray-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 shadow-sm"
+                }`}
+              >
+                {number}
+              </button>
+            ))}
+
+            {/* Next Button */}
+            <button 
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="w-12 h-12 rounded-2xl bg-white border border-gray-100 text-gray-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 flex items-center justify-center transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-100 disabled:hover:text-gray-400 outline-none"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        )}
       </div>
 
       <Footer />
