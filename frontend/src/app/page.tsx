@@ -126,16 +126,16 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
-      <DepartmentsSection />
-      <ServicesSection />
+      
       <FeaturedDoctors />
+      <ServicesSection />
+      <DepartmentsSection />
+      <FacilityTourSection />
+      <WhyChooseUsSection />
+      <AccreditationsSection/>
       <TestimonialsSection />
       <FAQSection />
       <AppointmentCTA />
-      <FacilityTourSection />
-      <AccreditationsSection/>
-      <WhyChooseUsSection />
       <Footer />
     </main>
   );
