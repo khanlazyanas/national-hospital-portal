@@ -23,7 +23,7 @@ export default function FeaturedDoctors() {
         </div>
       </div>
 
-      {/* Single Premium Doctor Profile */}
+      {/* Single Premium Doctor Profile (Replacing the old 3-grid) */}
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="group bg-white rounded-[3rem] p-4 md:p-6 border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_60px_-15px_rgba(37,99,235,0.15)] transition-all duration-[600ms] ease-[cubic-bezier(0.19,1,0.22,1)] flex flex-col md:flex-row gap-8 lg:gap-16 items-center">
           
@@ -34,7 +34,7 @@ export default function FeaturedDoctors() {
               <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 drop-shadow-sm" /> 15+ Years Exp.
             </div>
 
-            {/* REPLACE THIS WITH ACTUAL DR. AQ JILANI IMAGE */}
+            {/* Premium Doctor Portrait */}
             <img 
               src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800" 
               alt="Dr. AQ Jilani"
@@ -43,6 +43,7 @@ export default function FeaturedDoctors() {
             
             <div className="absolute inset-0 bg-gradient-to-t from-[#0b2447]/80 via-[#0b2447]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
+            {/* Hover Social Actions */}
             <div className="absolute bottom-8 left-0 w-full flex justify-center gap-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[600ms] ease-[cubic-bezier(0.19,1,0.22,1)] z-20">
               <Link href="#" className="w-12 h-12 rounded-full bg-white text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition-colors hover:scale-110 duration-300">
                 <FaLinkedin className="w-5 h-5" />
