@@ -1,5 +1,5 @@
 import React from "react";
-import { ShieldCheck, Users, Clock, Microscope, ArrowRight, HeartHandshake } from "lucide-react";
+import { ShieldCheck, UserCheck, Clock, Microscope, ArrowRight, HeartHandshake } from "lucide-react";
 import Link from "next/link";
 
 const features = [
@@ -15,9 +15,9 @@ const features = [
   },
   {
     id: 2,
-    title: "200+ Top Specialists",
-    description: "A multidisciplinary team of nationally recognized doctors, surgeons, and clinicians collaborating for your care.",
-    icon: Users,
+    title: "Expert Leadership",
+    description: "Personalized, world-class medical care directly under the supervision of Dr. AQ Jilani (MBBS, MD, DM).",
+    icon: UserCheck, // Changed icon to UserCheck
     iconColor: "text-blue-600",
     iconBg: "bg-blue-50",
     glowColor: "group-hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.3)]",
@@ -26,7 +26,7 @@ const features = [
   {
     id: 3,
     title: "24/7 Emergency & ICU",
-    description: "Fully equipped Level-1 trauma center and intensive care units with senior consultants available round-the-clock.",
+    description: "Fully equipped Level-1 trauma center and intensive care units with dedicated nursing staff round-the-clock.",
     icon: Clock,
     iconColor: "text-red-500",
     iconBg: "bg-red-50",
@@ -36,7 +36,7 @@ const features = [
   {
     id: 4,
     title: "Advanced Technology",
-    description: "Next-generation 3T MRI, robotic surgery systems, and AI-assisted diagnostics for pinpoint accuracy.",
+    description: "Next-generation MRI, neuro-diagnostics, and precision medical equipment for pinpoint accuracy.",
     icon: Microscope,
     iconColor: "text-indigo-600",
     iconBg: "bg-indigo-50",
