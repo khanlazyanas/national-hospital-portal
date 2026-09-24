@@ -2,12 +2,19 @@ import React from "react";
 import Link from "next/link";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { ShieldCheck, HeartPulse, Award, Users, ArrowRight, Building2, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, HeartPulse, Award, BrainCircuit, Building2, CheckCircle2 } from "lucide-react";
+
+export const metadata = {
+  title: "About Dr. AQ Jilani | National Hospital & Neuro Center",
+  description: "Learn about the vision, legacy, and clinical excellence of Dr. AQ Jilani at National Hospital.",
+};
 
 export default function AboutPage() {
   return (
     <main className="font-sans text-white bg-white selection:bg-teal-500 selection:text-white">
-      <Navbar />
+      <div className="absolute top-0 w-full z-50">
+        <Navbar />
+      </div>
 
       {/* ================= ELITE BANNER: THE MANIFESTO ================= */}
       <section className="relative w-full min-h-[85vh] flex flex-col justify-center pt-40 pb-32 md:pt-48 md:pb-40 px-6 md:px-16 lg:px-24 overflow-hidden bg-[#020813]">
@@ -26,20 +33,20 @@ export default function AboutPage() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/20 rounded-full blur-[120px] pointer-events-none translate-y-1/2 -translate-x-1/4"></div>
 
-        {/* Header Content - Centered (Matched exactly to Services Page) */}
+        {/* Header Content - Centered */}
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-blue-300 mb-6 backdrop-blur-md shadow-sm">
             <Building2 className="w-4 h-4" />
-            The Healthcare Philosophy
+            Our Legacy & Vision
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-white drop-shadow-lg leading-tight">
             Dedicated To <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">Complete Recovery.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">Neurological Excellence.</span>
           </h1>
           
           <p className="text-blue-50/80 text-base md:text-lg max-w-2xl leading-relaxed font-light">
-            National Hospital & Neuro Center operates at the precise intersection of advanced medical technology and deep compassionate care. We are redefining multi-specialty treatment for the modern age.
+            National Hospital & Neuro Center operates at the precise intersection of advanced medical technology and deep compassionate care, personally guided by the expertise of Dr. AQ Jilani.
           </p>
         </div>
       </section>
@@ -51,33 +58,34 @@ export default function AboutPage() {
         <section className="bg-[#f8fafc] rounded-t-[2.5rem] md:rounded-t-[4rem] px-6 md:px-16 lg:px-24 py-20 md:py-28 shadow-[0_-20px_40px_rgba(0,0,0,0.1)]">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
-            {/* Left Content */}
+            {/* Left Content (Updated for Dr. Jilani) */}
             <div className="order-2 lg:order-1 text-center md:text-left">
               <h2 className="text-3xl md:text-5xl font-extrabold text-[#0b2447] mb-6 leading-tight tracking-tight">
-                Pioneering Excellence <br className="hidden md:block"/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Since 2001.</span>
+                Pioneering Healthcare <br className="hidden md:block"/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Under Expert Leadership.</span>
               </h2>
               <p className="text-gray-500 leading-relaxed mb-10 text-base md:text-lg font-medium mx-auto md:mx-0 max-w-xl">
-                For over two decades, we have been at the forefront of medical innovation, specializing in advanced neurological care, emergency medicine, and comprehensive multi-specialty treatments. Our commitment is deeply rooted in patient-first values.
+                For over 15 years, Dr. AQ Jilani has been at the forefront of medical innovation. Specializing in advanced neurological care and psychiatric treatments, our clinic's commitment is deeply rooted in patient-first values and singular clinical focus.
               </p>
               
               <div className="grid grid-cols-2 gap-6 max-w-md mx-auto md:mx-0">
                 <div className="bg-white border border-gray-100 p-6 rounded-2xl hover:shadow-[0_10px_30px_-10px_rgba(37,99,235,0.15)] transition-all duration-300">
-                  <h3 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-2">25+</h3>
+                  <h3 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-2">15+</h3>
                   <p className="text-sm font-bold text-[#0b2447] uppercase tracking-wider">Years of Trust</p>
                 </div>
                 <div className="bg-white border border-gray-100 p-6 rounded-2xl hover:shadow-[0_10px_30px_-10px_rgba(37,99,235,0.15)] transition-all duration-300">
-                  <h3 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-2">200+</h3>
-                  <p className="text-sm font-bold text-[#0b2447] uppercase tracking-wider">Expert Doctors</p>
+                  <h3 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-2">10k+</h3>
+                  <p className="text-sm font-bold text-[#0b2447] uppercase tracking-wider">Lives Touched</p>
                 </div>
               </div>
             </div>
             
-            {/* Right Image */}
+            {/* Right Image (Updated to suggest a single doctor/consultation setting) */}
             <div className="order-1 lg:order-2 relative w-full h-[400px] md:h-[500px] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-15px_rgba(11,36,71,0.2)] group">
+              {/* Using a consultation/doctor-patient image to fit the new narrative */}
               <img 
-                src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800" 
-                alt="Our Medical Team" 
+                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800" 
+                alt="Clinical Excellence" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out grayscale-[20%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0b2447]/80 via-[#0b2447]/20 to-transparent"></div>
@@ -124,7 +132,7 @@ export default function AboutPage() {
                   <HeartPulse className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-[#0b2447] mb-3 group-hover:text-teal-600 transition-colors">Compassionate Care</h3>
-                <p className="text-gray-500 text-sm leading-relaxed font-medium">Treating every single patient with deep empathy, respect, and highly personalized attention.</p>
+                <p className="text-gray-500 text-sm leading-relaxed font-medium">Treating every single patient with deep empathy, respect, and highly personalized attention from Dr. Jilani.</p>
               </div>
 
               {/* Value 3 */}
@@ -133,16 +141,16 @@ export default function AboutPage() {
                   <Award className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-[#0b2447] mb-3 group-hover:text-blue-600 transition-colors">Medical Excellence</h3>
-                <p className="text-gray-500 text-sm leading-relaxed font-medium">Continuously upgrading our medical technology, research, and specialized clinical expertise.</p>
+                <p className="text-gray-500 text-sm leading-relaxed font-medium">Continuously upgrading our medical technology and clinical expertise for precise neuro-diagnostics.</p>
               </div>
 
-              {/* Value 4 */}
+              {/* Value 4 (Updated from 'Expert Team' to 'Expert Leadership') */}
               <div className="bg-[#f8fafc] p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-[0_20px_40px_rgb(37,99,235,0.12)] hover:-translate-y-2 transition-all duration-500 group">
                 <div className="w-16 h-16 bg-teal-100/50 text-teal-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500 shadow-sm">
-                  <Users className="w-8 h-8" />
+                  <BrainCircuit className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0b2447] mb-3 group-hover:text-teal-600 transition-colors">Expert Team</h3>
-                <p className="text-gray-500 text-sm leading-relaxed font-medium">World-class doctors, surgeons, and support staff available 24/7 for advanced consultations.</p>
+                <h3 className="text-xl font-bold text-[#0b2447] mb-3 group-hover:text-teal-600 transition-colors">Specialized Focus</h3>
+                <p className="text-gray-500 text-sm leading-relaxed font-medium">A dedicated center exclusively built around advanced neurological and psychiatric medicine.</p>
               </div>
             </div>
           </div>
