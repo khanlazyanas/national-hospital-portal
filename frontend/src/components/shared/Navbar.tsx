@@ -38,7 +38,8 @@ export default function Navbar() {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
-    { name: "Doctors", path: "/doctors" },
+    // Updated from "Doctors" to reflect the solo-specialist clinic
+    { name: "Dr. AQ Jilani", path: "/doctors" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
     { name: "Accreditations", path: "/accreditations" },
@@ -116,7 +117,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Navigation Links (Padding adjusted to fit all 7 links cleanly) */}
+            {/* Desktop Navigation Links */}
             <div className={`hidden lg:flex items-center gap-0.5 xl:gap-1 absolute left-1/2 -translate-x-1/2 transition-all duration-700 ${
               scrolled ? "bg-slate-100/60 border border-slate-200/60 p-1.5 rounded-full" : ""
             }`}>
@@ -144,7 +145,7 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Action Cluster (CTA & Ultra-Premium Hamburger) */}
+            {/* Action Cluster */}
             <div className="flex items-center gap-4 sm:gap-6 relative z-[160]">
               <Link 
                 href="/appointment" 
@@ -152,9 +153,7 @@ export default function Navbar() {
                   scrolled ? "h-10 w-40 xl:w-44" : "h-12 w-48 xl:w-52"
                 }`}
               >
-                {/* Dynamic Base Background */}
                 <div className={`absolute inset-0 transition-colors duration-500 ${scrolled ? "bg-[#0b2447]" : "bg-white"}`}></div>
-                {/* Swipe hover effect */}
                 <div className="absolute inset-0 bg-blue-600 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"></div>
                 
                 <div className={`relative font-black uppercase flex items-center gap-1.5 xl:gap-2 transition-all duration-300 group-hover:text-white ${
@@ -165,7 +164,7 @@ export default function Navbar() {
                 </div>
               </Link>
 
-              {/* Ultra-Premium Hamburger Button */}
+              {/* Hamburger Button */}
               <button 
                 onClick={() => setIsOpen(!isOpen)} 
                 aria-label="Toggle Menu"
@@ -195,13 +194,12 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ================= REFINED MOBILE OVERLAY (FULL SCREEN MATRIX) ================= */}
+      {/* ================= REFINED MOBILE OVERLAY ================= */}
       <div 
         className={`fixed inset-0 z-[150] lg:hidden transition-all duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Dark Background with subtle blur/gradient */}
         <div className={`absolute inset-0 bg-[#020813] transition-transform duration-[900ms] ease-[cubic-bezier(0.19,1,0.22,1)] ${
           isOpen ? "translate-y-0" : "-translate-y-full"
         }`}>
@@ -211,9 +209,7 @@ export default function Navbar() {
             </div>
         </div>
 
-        {/* Menu Content */}
         <div className="relative h-full flex flex-col justify-between p-8 sm:p-12 overflow-y-auto pt-32 pb-12">
-          
           <div className="space-y-10 sm:space-y-12">
             <div className="flex items-center gap-4 transition-all duration-700 delay-300" style={{ opacity: isOpen ? 1 : 0, transform: isOpen ? 'translateY(0)' : 'translateY(20px)' }}>
               <div className="w-8 h-[2px] bg-blue-500"></div>
@@ -256,14 +252,7 @@ export default function Navbar() {
                  <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </div>
             </Link>
-            
-            <div className="flex justify-center gap-10 mt-12 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
-              <a href="#" className="hover:text-white hover:tracking-[0.4em] transition-all duration-500 outline-none">Instagram</a>
-              <a href="#" className="hover:text-white hover:tracking-[0.4em] transition-all duration-500 outline-none">LinkedIn</a>
-              <a href="#" className="hover:text-white hover:tracking-[0.4em] transition-all duration-500 outline-none">Twitter</a>
-            </div>
           </div>
-
         </div>
       </div>
     </>
