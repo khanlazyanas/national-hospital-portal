@@ -5,21 +5,21 @@ const testimonials = [
     name: "Rahul Sharma",
     role: "Neurology Patient",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
-    review: "The neurology department here is exceptional. The doctors were incredibly patient and thorough with my diagnosis. Truly world-class care.",
+    review: "Dr. Jilani's expertise in treating my chronic migraines was life-changing. His thorough diagnosis and patient-first approach truly make this a world-class neuro center.",
     rating: 5,
   },
   {
     name: "Priya Singh",
-    role: "Cardiology Patient",
+    role: "Psychiatry Patient",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150",
-    review: "I had a wonderful experience during my treatment. The staff was caring, and the facilities are modern, clean, and highly comforting.",
+    review: "I had a wonderful experience during my therapy sessions. Dr. Jilani is incredibly compassionate. The clinic environment is modern, highly confidential, and comforting.",
     rating: 5,
   },
   {
     name: "Amit Patel",
-    role: "Orthopedics Patient",
+    role: "Stroke Recovery",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150",
-    review: "Very professional environment. The appointment booking process was seamless, and the post-surgery care was beyond my expectations.",
+    review: "The post-stroke rehabilitation care under Dr. Jilani's guidance was phenomenal. The appointment process was seamless, and the medical attention exceeded all my expectations.",
     rating: 5,
   }
 ];
@@ -44,7 +44,7 @@ export default function TestimonialsSection() {
             What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">Patients Say</span>
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg font-medium leading-relaxed">
-            Real stories from our patients who have experienced our world-class medical care and compassionate healing environment.
+            Real stories from our patients who have experienced our world-class medical care and compassionate healing environment under Dr. AQ Jilani.
           </p>
         </div>
 
