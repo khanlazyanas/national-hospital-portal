@@ -2,16 +2,24 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { CalendarDays, Clock, User, Phone, Mail, Stethoscope, FileText, CheckCircle2 } from "lucide-react";
 
+export const metadata = {
+  title: "Book Appointment | Dr. AQ Jilani | National Hospital",
+  description: "Schedule your consultation with Dr. AQ Jilani for advanced neurological and psychiatric care.",
+};
+
 export default function AppointmentPage() {
   return (
     <main className="min-h-screen bg-[#f8fafc]">
-      <Navbar />
+      <div className="absolute top-0 w-full z-50">
+        <Navbar />
+      </div>
       
       {/* Premium Header Banner */}
       <section className="relative w-full pt-40 pb-32 md:pt-48 md:pb-40 px-6 md:px-16 lg:px-24 overflow-hidden bg-[#020813]">
         <div className="absolute inset-0 z-0">
+          {/* Changed image to a more clinical/consultation vibe */}
           <img 
-            src="https://images.unsplash.com/photo-1538108149393-cebb47acddb2?auto=format&fit=crop&q=80&w=1920" 
+            src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1920" 
             alt="Book Appointment" 
             className="w-full h-full object-cover object-center opacity-20 mix-blend-luminosity"
           />
@@ -30,13 +38,13 @@ export default function AppointmentPage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">Consultation</span>
           </h1>
           <p className="text-blue-50/80 text-base md:text-lg max-w-2xl leading-relaxed font-light">
-            Skip the waiting room. Book your appointment online with our top specialists and experience seamless, world-class healthcare.
+            Skip the waiting room. Book your priority slot directly with Dr. AQ Jilani and experience seamless, world-class neurological and psychiatric care.
           </p>
         </div>
       </section>
 
       {/* Booking Form Layout */}
-      <div className="relative z-20 -mt-12 md:-mt-20 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto mb-24">
+      <div className="relative z-20 -mt-12 md:-mt-20 px-4 sm:px-6 md:px-16 lg:px-24 max-w-7xl mx-auto mb-24">
         <div className="bg-white rounded-[2.5rem] md:rounded-[3rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden flex flex-col lg:flex-row">
           
           {/* Left: Trust & Info */}
@@ -52,7 +60,7 @@ export default function AppointmentPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-1">Zero Wait Time</h3>
-                  <p className="text-blue-100/70 text-sm">Get priority access to your doctor at your scheduled time.</p>
+                  <p className="text-blue-100/70 text-sm">Get priority access to Dr. Jilani at your scheduled time.</p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -60,8 +68,8 @@ export default function AppointmentPage() {
                   <User className="w-6 h-6 text-teal-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold mb-1">Expert Matching</h3>
-                  <p className="text-blue-100/70 text-sm">We ensure you are paired with the most relevant specialist.</p>
+                  <h3 className="text-lg font-bold mb-1">Direct Consultation</h3>
+                  <p className="text-blue-100/70 text-sm">Every appointment is personally handled by our Chief Specialist.</p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -126,14 +134,15 @@ export default function AppointmentPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Department / Specialist</label>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Consultation Type</label>
                 <div className="relative">
                   <Stethoscope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                   <select className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447] appearance-none cursor-pointer relative">
-                    <option>Select Department</option>
-                    <option>Neurology - Dr. Sarah Connor</option>
-                    <option>Cardiology - Dr. James Wilson</option>
-                    <option>Orthopedics - Dr. Emily Chen</option>
+                    <option value="">Select Service</option>
+                    <option value="neuro-opd">Neurology OPD Consultation</option>
+                    <option value="psychiatry-opd">Psychiatry & Therapy Session</option>
+                    <option value="tele-consult">Online Video Consultation</option>
+                    <option value="follow-up">Routine Follow-up</option>
                   </select>
                 </div>
               </div>
