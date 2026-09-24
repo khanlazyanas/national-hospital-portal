@@ -2,10 +2,17 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { MapPin, Phone, Mail, Clock, Headset, Send } from "lucide-react";
 
+export const metadata = {
+  title: "Contact Us | National Hospital & Neuro Center",
+  description: "Get in touch with National Hospital & Neuro Center. Book an appointment or reach out for emergency neurological support.",
+};
+
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#f8fafc]">
-      <Navbar />
+      <div className="absolute top-0 w-full z-50">
+        <Navbar />
+      </div>
       
       {/* Premium Header Banner - Deep Dark Glassmorphism Theme */}
       <section className="relative w-full pt-40 pb-32 md:pt-48 md:pb-40 px-6 md:px-16 lg:px-24 overflow-hidden bg-[#020813]">
@@ -35,13 +42,13 @@ export default function ContactPage() {
           </h1>
           
           <p className="text-blue-50/80 text-base md:text-lg max-w-2xl leading-relaxed font-light">
-            We are here for you around the clock. Reach out for priority appointments, emergency support, or any medical inquiries.
+            We are here for you around the clock. Reach out for priority appointments with Dr. Jilani, emergency neuro-support, or general medical inquiries.
           </p>
         </div>
       </section>
 
       {/* Main Content Layout with 3D Overlap Effect */}
-      <div className="relative z-20 -mt-12 md:-mt-20 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto mb-24">
+      <div className="relative z-20 -mt-12 md:-mt-20 px-4 sm:px-6 md:px-16 lg:px-24 max-w-7xl mx-auto mb-24">
         
         {/* Massive Floating Contact Card */}
         <div className="bg-white rounded-[2.5rem] md:rounded-[3rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden flex flex-col lg:flex-row">
@@ -59,7 +66,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-[#0b2447] mb-1">Emergency & Appts</h3>
                   <p className="text-gray-500 text-sm font-medium">24/7 Helpline: +91 800 123 4567</p>
-                  <p className="text-gray-500 text-sm font-medium">Reception: +91 800 123 4568</p>
+                  <p className="text-gray-500 text-sm font-medium">Clinic Reception: +91 800 123 4568</p>
                 </div>
               </div>
 
@@ -70,8 +77,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#0b2447] mb-1">Email Us</h3>
-                  <p className="text-gray-500 text-sm font-medium">Inquiries: contact@nationalhospital.com</p>
-                  <p className="text-gray-500 text-sm font-medium">Careers: hr@nationalhospital.com</p>
+                  <p className="text-gray-500 text-sm font-medium">Inquiries: info@nationalhospital.com</p>
+                  <p className="text-gray-500 text-sm font-medium">Consultations: dr.jilani@nationalhospital.com</p>
                 </div>
               </div>
 
@@ -81,8 +88,8 @@ export default function ContactPage() {
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-[#0b2447] mb-1">Location</h3>
-                  <p className="text-gray-500 text-sm font-medium leading-relaxed">Sigra Main Road, Varanasi<br/>Uttar Pradesh, India 221010</p>
+                  <h3 className="text-lg font-bold text-[#0b2447] mb-1">Clinic Location</h3>
+                  <p className="text-gray-500 text-sm font-medium leading-relaxed">Gomti Nagar Main Road, Lucknow<br/>Uttar Pradesh, India 226010</p>
                 </div>
               </div>
 
@@ -93,8 +100,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#0b2447] mb-1">Operating Hours</h3>
-                  <p className="text-gray-500 text-sm font-medium"><span className="font-bold text-[#0b2447]">Emergency:</span> 24/7 Open</p>
-                  <p className="text-gray-500 text-sm font-medium"><span className="font-bold text-[#0b2447]">OPD Timings:</span> 9:00 AM - 8:00 PM</p>
+                  <p className="text-gray-500 text-sm font-medium"><span className="font-bold text-[#0b2447]">Neuro Emergency:</span> 24/7 Open</p>
+                  <p className="text-gray-500 text-sm font-medium"><span className="font-bold text-[#0b2447]">OPD Timings:</span> 10:00 AM - 7:00 PM</p>
                 </div>
               </div>
             </div>
@@ -121,12 +128,12 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Department (Optional)</label>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Inquiry Type</label>
                 <select className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447] appearance-none cursor-pointer">
                   <option>General Inquiry</option>
-                  <option>Neurology</option>
-                  <option>Cardiology</option>
-                  <option>Orthopedics</option>
+                  <option>Neurology Consultation Booking</option>
+                  <option>Psychiatry Session Booking</option>
+                  <option>Emergency Contact</option>
                 </select>
               </div>
 
