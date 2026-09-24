@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Accordion,
   AccordionContent,
@@ -9,20 +11,20 @@ import Link from "next/link";
 
 const faqs = [
   {
-    question: "How do I book an appointment?",
-    answer: "You can book an appointment through our website by clicking the 'Book Appointment' button, or you can call our 24/7 helpline at +91 800 123 4567. We also offer instant booking via our WhatsApp support line."
+    question: "What neurological conditions does Dr. AQ Jilani treat?",
+    answer: "Dr. Jilani specializes in a wide spectrum of complex neurological disorders, including Stroke Management, Epilepsy, Parkinson's Disease, Chronic Migraines, Neuropathy, and post-trauma Neuro-Rehabilitation."
   },
   {
-    question: "Do you accept health insurance?",
-    answer: "Yes, we accept most major health insurance plans including corporate policies. Please bring your insurance card, a valid ID, and previous medical records during your visit for seamless verification."
+    question: "Are psychiatric and therapy services available?",
+    answer: "Yes, our clinic offers comprehensive psychiatric evaluations and clinical therapy for conditions like Depression, Severe Anxiety, OCD, and stress management, providing a holistic approach to mental wellness."
   },
   {
-    question: "What are the visiting hours for admitted patients?",
-    answer: "General visiting hours are from 10:00 AM to 1:00 PM and 5:00 PM to 8:00 PM. For patient safety, ICU visiting hours are strictly limited to immediate family members for 15 minutes per session."
+    question: "Can I book an online video consultation with Dr. Jilani?",
+    answer: "Absolutely. We offer premium HD tele-consultations for outstation and international patients. You can easily schedule an online session through our 'Book Appointment' page or by calling our helpdesk."
   },
   {
-    question: "Is emergency care available 24/7?",
-    answer: "Absolutely. Our specialized Emergency and Trauma Center is fully equipped with advanced life-support systems and operates 24 hours a day, 7 days a week, with senior specialists on standby."
+    question: "Do you handle acute neurological emergencies?",
+    answer: "Yes, National Hospital & Neuro Center operates a 24/7 emergency response unit specifically equipped to handle critical neuro-emergencies like acute strokes and traumatic brain injuries."
   }
 ];
 
@@ -50,7 +52,7 @@ export default function FAQSection() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 pr-1">Questions.</span>
           </h2>
           <p className="text-slate-500 max-w-lg mx-auto text-sm md:text-base font-medium leading-relaxed">
-            Find quick, precise answers to common questions about our hospital services, admission procedures, and patient care guidelines.
+            Find quick, precise answers regarding Dr. Jilani's consultation process, neuro-treatments, and clinic facilities.
           </p>
         </div>
         
