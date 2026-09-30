@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Environment Variables (Secret keys)
+.env
+
+# Build folder (Render pe banega, GitHub pe nahi chahiye)
+dist/
+
+# Logs
+*.log
+npm-debug.log*
