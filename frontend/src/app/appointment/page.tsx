@@ -1,13 +1,44 @@
+"use client";
+
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { CalendarDays, Clock, User, Phone, Mail, Stethoscope, FileText, CheckCircle2 } from "lucide-react";
+import { CalendarDays, Clock, User, Phone, Mail, Stethoscope, FileText, CheckCircle2, ChevronDown } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/redux/store";
+import { updateAppointmentData, resetAppointment } from "@/redux/slices/appointmentSlice";
+import { useState } from "react";
 
-export const metadata = {
-  title: "Book Appointment | Dr. AQ Jilani | National Hospital",
-  description: "Schedule your consultation with Dr. AQ Jilani for advanced neurological and psychiatric care.",
-};
+// Metadata is not allowed in Client Components, so we remove it or use a separate layout. 
+// Since you are using "use client", I have removed the metadata export. 
+// If you need SEO, put this page's content in a separate component and use it in a server component.
 
 export default function AppointmentPage() {
+  const dispatch = useDispatch<AppDispatch>();
+  const appointmentData = useSelector((state: RootState) => state.appointment);
+  console.log("Redux Data:", appointmentData);
+  
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Handle Input Changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    dispatch(updateAppointmentData({ [name]: value }));
+  };
+
+  // Handle Form Submit
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Appointment Booked Successfully:", appointmentData);
+    
+    // Yahan aap apna API call kar sakte ho backend pe bhejne ke liye
+    
+    setIsSubmitted(true);
+    dispatch(resetAppointment()); // Form clear karne ke liye
+
+    // 3 second baad success message hide karne ke liye
+    setTimeout(() => setIsSubmitted(false), 3000);
+  };
+
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       <div className="absolute top-0 w-full z-50">
@@ -17,7 +48,6 @@ export default function AppointmentPage() {
       {/* Premium Header Banner */}
       <section className="relative w-full pt-40 pb-32 md:pt-48 md:pb-40 px-6 md:px-16 lg:px-24 overflow-hidden bg-[#020813]">
         <div className="absolute inset-0 z-0">
-          {/* Changed image to a more clinical/consultation vibe */}
           <img 
             src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1920" 
             alt="Book Appointment" 
@@ -95,23 +125,48 @@ export default function AppointmentPage() {
           </div>
 
           {/* Right: Premium Form */}
-          <div className="w-full lg:w-[60%] p-8 md:p-12 bg-white">
+          <div className="w-full lg:w-[60%] p-8 md:p-12 bg-white relative">
             <h3 className="text-2xl font-extrabold text-[#0b2447] mb-8">Patient Details</h3>
-            <form className="space-y-6">
+            
+            {/* Success Message Alert */}
+            {isSubmitted && (
+              <div className="absolute top-4 right-4 bg-green-50 border border-green-200 text-green-700 px-6 py-4 rounded-2xl flex items-center gap-3 shadow-lg animate-in fade-in slide-in-from-top-4 duration-300 z-50">
+                <CheckCircle2 className="w-6 h-6 text-green-500" />
+                <span className="font-semibold text-sm">Appointment Confirmed!</span>
+              </div>
+            )}
+
+            <form className="space-y-6" onSubmit={handleSubmit}>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Full Name</label>
                   <div className="relative">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input type="text" className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" placeholder="John Doe" />
+                    <input 
+                      type="text" 
+                      name="patientName"
+                      value={appointmentData.patientName}
+                      onChange={handleChange}
+                      required
+                      className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
+                      placeholder="John Doe" 
+                    />
                   </div>
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Phone Number</label>
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input type="tel" className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" placeholder="+91 98765 43210" />
+                    <input 
+                      type="tel" 
+                      name="phone"
+                      value={appointmentData.phone}
+                      onChange={handleChange}
+                      required
+                      className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
+                      placeholder="+91 98765 43210" 
+                    />
                   </div>
                 </div>
               </div>
@@ -121,14 +176,29 @@ export default function AppointmentPage() {
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Email Address</label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input type="email" className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" placeholder="john@example.com" />
+                    <input 
+                      type="email" 
+                      name="email"
+                      value={appointmentData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
+                      placeholder="john@example.com" 
+                    />
                   </div>
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Preferred Date</label>
                   <div className="relative">
                     <CalendarDays className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input type="date" className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" />
+                    <input 
+                      type="date" 
+                      name="preferredDate"
+                      value={appointmentData.preferredDate}
+                      onChange={handleChange}
+                      required
+                      className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
+                    />
                   </div>
                 </div>
               </div>
@@ -137,17 +207,28 @@ export default function AppointmentPage() {
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Consultation Type</label>
                 <div className="relative">
                   <Stethoscope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
-                  <select className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447] appearance-none cursor-pointer relative">
-                    <option value="">Select Service</option>
+                  <select 
+                    name="service"
+                    value={appointmentData.service}
+                    onChange={handleChange}
+                    required
+                    className="w-full pl-12 pr-10 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447] appearance-none cursor-pointer relative"
+                  >
+                    <option value="" disabled>Select Service</option>
                     <option value="neuro-opd">Neurology OPD Consultation</option>
                     <option value="psychiatry-opd">Psychiatry & Therapy Session</option>
                     <option value="tele-consult">Online Video Consultation</option>
                     <option value="follow-up">Routine Follow-up</option>
                   </select>
+                  {/* Custom Dropdown Arrow */}
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
                 </div>
               </div>
 
-              <button type="button" className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-4 rounded-2xl shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all duration-300 mt-4">
+              <button 
+                type="submit" 
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-4 rounded-2xl shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all duration-300 mt-4"
+              >
                 Confirm Appointment
               </button>
             </form>

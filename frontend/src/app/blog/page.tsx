@@ -93,11 +93,13 @@ export default function BlogPage() {
 
   // Search & Filter Logic
   const filteredPosts = allBlogPosts.filter((post) => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.author.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = 
+      (post.title?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || 
+      (post.author?.toLowerCase() || "").includes(searchQuery.toLowerCase());
+      
     const matchesCategory = selectedCategory === "All Categories" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
-  });
+});
 
   // Pagination Logic based on FILTERED posts
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
