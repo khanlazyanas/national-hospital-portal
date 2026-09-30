@@ -1,13 +1,15 @@
 import express from 'express';
 import cors from 'cors';
+import appointmentRoutes from './routes/appointmentRoutes';
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Basic test route
+// Routes
+app.use('/api/appointments', appointmentRoutes);
+
 app.get('/', (req, res) => {
   res.send('National Hospital Backend API is running...');
 });
