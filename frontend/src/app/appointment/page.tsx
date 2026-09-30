@@ -2,22 +2,19 @@
 
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { CalendarDays, Clock, User, Phone, Mail, Stethoscope, FileText, CheckCircle2, ChevronDown } from "lucide-react";
+import { CalendarDays, Clock, User, Phone, Mail, Stethoscope, FileText, CheckCircle2, ChevronDown, MapPin } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/redux/store";
 import { updateAppointmentData, resetAppointment } from "@/redux/slices/appointmentSlice";
 import { useState } from "react";
 
-// Metadata is not allowed in Client Components, so we remove it or use a separate layout. 
-// Since you are using "use client", I have removed the metadata export. 
-// If you need SEO, put this page's content in a separate component and use it in a server component.
-
 export default function AppointmentPage() {
   const dispatch = useDispatch<AppDispatch>();
   const appointmentData = useSelector((state: RootState) => state.appointment);
-  console.log("Redux Data:", appointmentData);
   
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   // Handle Input Changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -25,18 +22,37 @@ export default function AppointmentPage() {
     dispatch(updateAppointmentData({ [name]: value }));
   };
 
-  // Handle Form Submit
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle Form Submit (Connected to Render Backend)
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Appointment Booked Successfully:", appointmentData);
-    
-    // Yahan aap apna API call kar sakte ho backend pe bhejne ke liye
-    
-    setIsSubmitted(true);
-    dispatch(resetAppointment()); // Form clear karne ke liye
+    setIsLoading(true);
+    setErrorMsg("");
 
-    // 3 second baad success message hide karne ke liye
-    setTimeout(() => setIsSubmitted(false), 3000);
+    // Render backend URL
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://national-hospital-portal.onrender.com";
+
+    try {
+      const response = await fetch(`${API_URL}/api/appointments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(appointmentData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        dispatch(resetAppointment());
+        setTimeout(() => setIsSubmitted(false), 4000);
+      } else {
+        setErrorMsg(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMsg("Failed to connect to server. Please check your internet.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -136,6 +152,13 @@ export default function AppointmentPage() {
               </div>
             )}
 
+            {/* Error Message Alert */}
+            {errorMsg && (
+              <div className="absolute top-4 right-4 bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-2xl flex items-center gap-3 shadow-lg animate-in fade-in slide-in-from-top-4 duration-300 z-50">
+                <span className="font-semibold text-sm">{errorMsg}</span>
+              </div>
+            )}
+
             <form className="space-y-6" onSubmit={handleSubmit}>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -203,6 +226,23 @@ export default function AppointmentPage() {
                 </div>
               </div>
 
+              {/* Address Field Added */}
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Address</label>
+                <div className="relative">
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input 
+                    type="text" 
+                    name="address"
+                    value={appointmentData.address}
+                    onChange={handleChange}
+                    required
+                    className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
+                    placeholder="123, Street Name, City" 
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Consultation Type</label>
                 <div className="relative">
@@ -220,16 +260,20 @@ export default function AppointmentPage() {
                     <option value="tele-consult">Online Video Consultation</option>
                     <option value="follow-up">Routine Follow-up</option>
                   </select>
-                  {/* Custom Dropdown Arrow */}
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
                 </div>
               </div>
 
               <button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-4 rounded-2xl shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all duration-300 mt-4"
+                disabled={isLoading}
+                className={`w-full font-bold py-4 rounded-2xl shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] transition-all duration-300 mt-4 ${
+                  isLoading 
+                    ? "bg-gray-400 text-white cursor-not-allowed" 
+                    : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-0.5"
+                }`}
               >
-                Confirm Appointment
+                {isLoading ? "Booking..." : "Confirm Appointment"}
               </button>
             </form>
           </div>

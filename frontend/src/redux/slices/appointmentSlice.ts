@@ -5,6 +5,7 @@ interface AppointmentState {
   patientName: string;
   phone: string;
   email: string;
+  address: string;
   preferredDate: string;
   service: string;
 }
@@ -13,6 +14,7 @@ const initialState: AppointmentState = {
   patientName: "",
   phone: "",
   email: "",
+  address: "",
   preferredDate: "",
   service: "",
 };
