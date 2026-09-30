@@ -93,9 +93,10 @@ export default function BlogPage() {
 
   // Search & Filter Logic
   const filteredPosts = allBlogPosts.filter((post) => {
+    // (post.title || "") isliye lagaya hai taaki agar title undefined ho toh empty string ban jaye
     const matchesSearch = 
-      (post.title?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || 
-      (post.author?.toLowerCase() || "").includes(searchQuery.toLowerCase());
+      (post.title || "").toLowerCase().includes(searchQuery.toLowerCase()) || 
+      (post.author || "").toLowerCase().includes(searchQuery.toLowerCase());
       
     const matchesCategory = selectedCategory === "All Categories" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
