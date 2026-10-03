@@ -32,3 +32,23 @@ export const createAppointment = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: 'Server Error' });
   }
 };
+
+
+// @desc    Get all appointments
+// @route   GET /api/appointments
+// @access  Private (Admin)
+export const getAppointments = async (req: Request, res: Response) => {
+  try {
+    // Latest appointment sabse upar aayegi
+    const appointments = await Appointment.find().sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: appointments.length,
+      data: appointments,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server Error' });
+  }
+};

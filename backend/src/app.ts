@@ -19,5 +19,4 @@ app.use('/api/appointments', appointmentRoutes);
 app.get('/', (req, res) => {
   res.send('National Hospital Backend API is running...');
 });
-
 export default app;
