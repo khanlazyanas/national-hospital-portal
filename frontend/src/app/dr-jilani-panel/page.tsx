@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { 
-  Lock, User, Phone, Mail, MapPin, Calendar, 
-  Stethoscope, RefreshCw, LogOut, CheckCircle2, XCircle 
+  Lock, Phone, Mail, MapPin, Calendar, 
+  RefreshCw, LogOut, CheckCircle2, XCircle, Trash2 
 } from "lucide-react";
 
 interface Appointment {
@@ -14,6 +14,7 @@ interface Appointment {
   address: string;
   preferredDate: string;
   service: string;
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
   createdAt: string;
 }
 
@@ -27,13 +28,11 @@ export default function AdminPage() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://national-hospital-portal.onrender.com";
   const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123";
 
-  // Session check (page refresh par login rahe)
   useEffect(() => {
     const saved = sessionStorage.getItem("adminLoggedIn");
     if (saved === "true") setIsLoggedIn(true);
   }, []);
 
-  // Jab login ho jaye, data fetch karo
   useEffect(() => {
     if (isLoggedIn) fetchAppointments();
   }, [isLoggedIn]);
@@ -60,9 +59,7 @@ export default function AdminPage() {
     try {
       const response = await fetch(`${API_URL}/api/appointments`);
       const data = await response.json();
-      if (response.ok) {
-        setAppointments(data.data);
-      }
+      if (response.ok) setAppointments(data.data);
     } catch (err) {
       console.error("Error fetching:", err);
     } finally {
@@ -70,7 +67,56 @@ export default function AdminPage() {
     }
   };
 
-  // ==================== LOGIN SCREEN ====================
+  // Status update function
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    try {
+      const response = await fetch(`${API_URL}/api/appointments/${id}/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (response.ok) {
+        // Local state update (bina page reload)
+        setAppointments((prev) =>
+          prev.map((apt) =>
+            apt._id === id ? { ...apt, status: newStatus as Appointment["status"] } : apt
+          )
+        );
+      }
+    } catch (err) {
+      console.error("Error updating status:", err);
+    }
+  };
+
+  // Delete function
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this appointment?")) return;
+
+    try {
+      const response = await fetch(`${API_URL}/api/appointments/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setAppointments((prev) => prev.filter((apt) => apt._id !== id));
+      }
+    } catch (err) {
+      console.error("Error deleting:", err);
+    }
+  };
+
+  // Status color helper
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "confirmed": return "bg-green-100 text-green-700 border-green-200";
+      case "completed": return "bg-blue-100 text-blue-700 border-blue-200";
+      case "cancelled": return "bg-red-100 text-red-700 border-red-200";
+      default: return "bg-yellow-100 text-yellow-700 border-yellow-200";
+    }
+  };
+
+  // ==================== LOGIN ====================
   if (!isLoggedIn) {
     return (
       <main className="min-h-screen bg-[#020813] flex items-center justify-center px-6">
@@ -85,12 +131,9 @@ export default function AdminPage() {
             <p className="text-blue-100/60 text-center text-sm mb-8 font-light">
               National Hospital & Neuro Center
             </p>
-
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
-                <label className="block text-xs font-bold text-blue-200 uppercase tracking-widest mb-2">
-                  Password
-                </label>
+                <label className="block text-xs font-bold text-blue-200 uppercase tracking-widest mb-2">Password</label>
                 <input
                   type="password"
                   value={password}
@@ -100,18 +143,13 @@ export default function AdminPage() {
                   className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/20 text-white placeholder-gray-500 transition-all text-sm"
                 />
               </div>
-
               {error && (
                 <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-xl text-sm">
                   <XCircle className="w-4 h-4 shrink-0" />
                   <span>{error}</span>
                 </div>
               )}
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-500 hover:to-teal-400 text-white font-bold py-4 rounded-2xl shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 transition-all duration-300"
-              >
+              <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-500 hover:to-teal-400 text-white font-bold py-4 rounded-2xl shadow-[0_10px_20px_-10px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 transition-all duration-300">
                 Login to Dashboard
               </button>
             </form>
@@ -121,7 +159,7 @@ export default function AdminPage() {
     );
   }
 
-  // ==================== DASHBOARD SCREEN ====================
+  // ==================== DASHBOARD ====================
   return (
     <main className="min-h-screen bg-[#f8fafc] py-10 px-4 md:px-10">
       <div className="max-w-7xl mx-auto">
@@ -129,26 +167,17 @@ export default function AdminPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-white rounded-3xl p-6 md:p-8 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)] border border-gray-100">
           <div>
-            <h1 className="text-2xl md:text-3xl font-black text-[#0b2447] mb-1">
-              Appointment Dashboard
-            </h1>
+            <h1 className="text-2xl md:text-3xl font-black text-[#0b2447] mb-1">Appointment Dashboard</h1>
             <p className="text-sm text-gray-500 font-medium">
               Total Bookings: <span className="text-blue-600 font-bold">{appointments.length}</span>
             </p>
           </div>
           <div className="flex gap-3">
-            <button
-              onClick={fetchAppointments}
-              disabled={isLoading}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-3 rounded-xl font-bold text-sm transition-all disabled:opacity-50"
-            >
+            <button onClick={fetchAppointments} disabled={isLoading} className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-3 rounded-xl font-bold text-sm transition-all disabled:opacity-50">
               <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
               Refresh
             </button>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-red-300 hover:text-red-500 text-gray-600 px-5 py-3 rounded-xl font-bold text-sm transition-all"
-            >
+            <button onClick={handleLogout} className="flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-red-300 hover:text-red-500 text-gray-600 px-5 py-3 rounded-xl font-bold text-sm transition-all">
               <LogOut className="w-4 h-4" />
               Logout
             </button>
@@ -163,7 +192,7 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Empty State */}
+        {/* Empty */}
         {!isLoading && appointments.length === 0 && (
           <div className="bg-white rounded-3xl p-16 text-center border border-gray-100">
             <CheckCircle2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
@@ -183,6 +212,8 @@ export default function AdminPage() {
                   <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider">Address</th>
                   <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider">Date</th>
                   <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider">Service</th>
+                  <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider">Status</th>
+                  <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -190,9 +221,7 @@ export default function AdminPage() {
                   <tr key={apt._id} className="hover:bg-blue-50/40 transition-colors">
                     <td className="px-6 py-4">
                       <p className="font-bold text-[#0b2447] text-sm">{apt.patientName}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">
-                        {new Date(apt.createdAt).toLocaleDateString()}
-                      </p>
+                      <p className="text-xs text-gray-400 mt-0.5">{new Date(apt.createdAt).toLocaleDateString()}</p>
                     </td>
                     <td className="px-6 py-4">
                       <p className="text-sm font-medium text-gray-700">{apt.phone}</p>
@@ -212,6 +241,27 @@ export default function AdminPage() {
                         {apt.service.replace("-", " ")}
                       </span>
                     </td>
+                    <td className="px-6 py-4">
+                      <select
+                        value={apt.status}
+                        onChange={(e) => handleStatusChange(apt._id, e.target.value)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold capitalize border-2 outline-none cursor-pointer ${getStatusColor(apt.status)}`}
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() => handleDelete(apt._id)}
+                        className="p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -227,15 +277,13 @@ export default function AdminPage() {
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <p className="font-black text-[#0b2447] text-lg">{apt.patientName}</p>
-                    <p className="text-xs text-gray-400">
-                      {new Date(apt.createdAt).toLocaleDateString()}
-                    </p>
+                    <p className="text-xs text-gray-400">{new Date(apt.createdAt).toLocaleDateString()}</p>
                   </div>
-                  <span className="bg-teal-50 text-teal-700 px-2.5 py-1 rounded-lg text-[10px] font-bold capitalize">
-                    {apt.service.replace("-", " ")}
+                  <span className={`px-2.5 py-1 rounded-lg text-[10px] font-bold capitalize border-2 ${getStatusColor(apt.status)}`}>
+                    {apt.status}
                   </span>
                 </div>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-sm mb-4">
                   <div className="flex items-center gap-2 text-gray-600">
                     <Phone className="w-4 h-4 text-blue-500" />
                     <span className="font-medium">{apt.phone}</span>
@@ -252,6 +300,24 @@ export default function AdminPage() {
                     <Calendar className="w-4 h-4 text-blue-500" />
                     <span className="font-bold text-blue-700">{apt.preferredDate}</span>
                   </div>
+                </div>
+                <div className="flex gap-2">
+                  <select
+                    value={apt.status}
+                    onChange={(e) => handleStatusChange(apt._id, e.target.value)}
+                    className={`flex-1 px-3 py-2 rounded-lg text-xs font-bold capitalize border-2 outline-none ${getStatusColor(apt.status)}`}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                  <button
+                    onClick={() => handleDelete(apt._id)}
+                    className="p-2.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             ))}
