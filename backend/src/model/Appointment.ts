@@ -7,6 +7,7 @@ export interface IAppointment extends Document {
   address: string; // <-- Add kiya
   preferredDate: string;
   service: string;
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
 }
 
 const appointmentSchema = new Schema<IAppointment>(
@@ -17,6 +18,11 @@ const appointmentSchema = new Schema<IAppointment>(
     address: { type: String, required: true }, // <-- Add kiya
     preferredDate: { type: String, required: true },
     service: { type: String, required: true },
+    status: {
+      type: String,
+      enum: ['pending', 'confirmed', 'completed', 'cancelled'],
+      default: 'pending',
+    },
   },
   { timestamps: true }
 );
