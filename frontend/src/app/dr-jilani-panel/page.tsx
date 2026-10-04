@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { 
   Lock, Phone, Mail, MapPin, Calendar, 
   RefreshCw, LogOut, CheckCircle2, XCircle, Trash2,
-  Search, Users, Clock, CheckCircle, XOctagon,
+  Search, Users, Clock, CheckCircle,
   Activity, TrendingUp, Filter, Shield
 } from "lucide-react";
 
@@ -24,44 +24,91 @@ export default function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [token, setToken] = useState<string>("");
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://national-hospital-portal.onrender.com";
-  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123";
 
+  // Check if token exists on page load
   useEffect(() => {
-    const saved = sessionStorage.getItem("adminLoggedIn");
-    if (saved === "true") setIsLoggedIn(true);
+    const savedToken = localStorage.getItem("adminToken");
+    if (savedToken) {
+      setToken(savedToken);
+      setIsLoggedIn(true);
+    }
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn) fetchAppointments();
-  }, [isLoggedIn]);
+    if (isLoggedIn && token) fetchAppointments();
+  }, [isLoggedIn, token]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  // Handle 401 (token expired) - logout
+  const handleUnauthorized = () => {
+    localStorage.removeItem("adminToken");
+    setToken("");
+    setIsLoggedIn(false);
+    setError("Session expired. Please login again.");
+  };
+
+  // LOGIN - Call backend /api/auth/login
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsLoggedIn(true);
-      sessionStorage.setItem("adminLoggedIn", "true");
-      setError("");
-    } else {
-      setError("Invalid password. Please try again.");
+    setIsLoggingIn(true);
+    setError("");
+
+    try {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        localStorage.setItem("adminToken", data.token);
+        setToken(data.token);
+        setIsLoggedIn(true);
+        setPassword("");
+        setError("");
+      } else {
+        setError(data.message || "Invalid password");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Failed to connect to server. Try again.");
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    setToken("");
     setIsLoggedIn(false);
     setPassword("");
-    sessionStorage.removeItem("adminLoggedIn");
+    setAppointments([]);
   };
 
+  // FETCH - with token
   const fetchAppointments = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/appointments`);
+      const response = await fetch(`${API_URL}/api/appointments`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
       const data = await response.json();
       if (response.ok) setAppointments(data.data);
     } catch (err) {
@@ -71,13 +118,23 @@ export default function AdminPage() {
     }
   };
 
+  // STATUS UPDATE - with token
   const handleStatusChange = async (id: string, newStatus: string) => {
     try {
       const response = await fetch(`${API_URL}/api/appointments/${id}/status`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ status: newStatus }),
       });
+
+      if (response.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
       if (response.ok) {
         setAppointments((prev) =>
           prev.map((apt) =>
@@ -90,12 +147,23 @@ export default function AdminPage() {
     }
   };
 
+  // DELETE - with token
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this appointment?")) return;
+
     try {
       const response = await fetch(`${API_URL}/api/appointments/${id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if (response.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
       if (response.ok) {
         setAppointments((prev) => prev.filter((apt) => apt._id !== id));
       }
@@ -104,7 +172,7 @@ export default function AdminPage() {
     }
   };
 
-  // Filtered appointments (search + filter)
+  // Filtered appointments
   const filteredAppointments = appointments.filter((apt) => {
     const matchesSearch =
       (apt.patientName || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -114,7 +182,6 @@ export default function AdminPage() {
     return matchesSearch && matchesFilter;
   });
 
-  // Stats
   const stats = {
     total: appointments.length,
     pending: appointments.filter((a) => a.status === "pending").length,
@@ -122,11 +189,10 @@ export default function AdminPage() {
     completed: appointments.filter((a) => a.status === "completed").length,
   };
 
-  // ==================== LOGIN ====================
+  // ==================== LOGIN SCREEN ====================
   if (!isLoggedIn) {
     return (
       <main className="min-h-screen bg-[#020813] flex items-center justify-center px-6 relative overflow-hidden">
-        {/* Background Effects */}
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-[120px] pointer-events-none"></div>
         <div className="absolute inset-0 opacity-[0.02]" style={{backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px'}}></div>
@@ -134,7 +200,6 @@ export default function AdminPage() {
         <div className="w-full max-w-md relative z-10">
           <div className="bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.8)]">
             
-            {/* Logo */}
             <div className="flex justify-center mb-6">
               <div className="relative">
                 <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-teal-500 rounded-[1.5rem] flex items-center justify-center shadow-[0_15px_40px_-10px_rgba(37,99,235,0.6)]">
@@ -153,7 +218,7 @@ export default function AdminPage() {
               </p>
               <div className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
-                <span className="text-[10px] font-bold text-green-300 uppercase tracking-widest">Secure Connection</span>
+                <span className="text-[10px] font-bold text-green-300 uppercase tracking-widest">JWT Secured</span>
               </div>
             </div>
 
@@ -176,7 +241,7 @@ export default function AdminPage() {
               </div>
 
               {error && (
-                <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-xl text-sm animate-in fade-in slide-in-from-top-2">
+                <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-xl text-sm">
                   <XCircle className="w-4 h-4 shrink-0" />
                   <span className="font-medium">{error}</span>
                 </div>
@@ -184,20 +249,30 @@ export default function AdminPage() {
 
               <button
                 type="submit"
-                className="group w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-500 hover:to-teal-400 text-white font-bold py-4 rounded-2xl shadow-[0_15px_30px_-10px_rgba(37,99,235,0.6)] hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.7)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden"
+                disabled={isLoggingIn}
+                className="group w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-500 hover:to-teal-400 text-white font-bold py-4 rounded-2xl shadow-[0_15px_30px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  Unlock Dashboard
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  {isLoggingIn ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 animate-spin" />
+                      Authenticating...
+                    </>
+                  ) : (
+                    <>
+                      Unlock Dashboard
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </>
+                  )}
                 </span>
               </button>
             </form>
           </div>
 
           <p className="text-center text-xs text-blue-100/30 mt-6 font-light">
-            Protected by enterprise-grade encryption
+            Protected by JWT encryption
           </p>
         </div>
       </main>
@@ -208,8 +283,7 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-[#f5f7fb]">
       
-      {/* Top Header Bar */}
-      <header className="bg-white border-b border-gray-200/60 sticky top-0 z-40 backdrop-blur-xl bg-white/80">
+      <header className="border-b border-gray-200/60 sticky top-0 z-40 backdrop-blur-xl bg-white/80">
         <div className="max-w-[1600px] mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-teal-500 rounded-xl flex items-center justify-center shadow-[0_8px_20px_-5px_rgba(37,99,235,0.5)]">
@@ -243,7 +317,6 @@ export default function AdminPage() {
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-10 py-8">
         
-        {/* Page Title + Actions */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-black text-[#0b2447] tracking-tight mb-2">
@@ -257,7 +330,7 @@ export default function AdminPage() {
           <button
             onClick={fetchAppointments}
             disabled={isLoading}
-            className="group flex items-center justify-center gap-2 bg-[#0b2447] hover:bg-blue-600 text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-[0_10px_25px_-10px_rgba(11,36,71,0.5)] hover:shadow-[0_15px_30px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50"
+            className="group flex items-center justify-center gap-2 bg-[#0b2447] hover:bg-blue-600 text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-[0_10px_25px_-10px_rgba(11,36,71,0.5)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : "group-hover:rotate-180 transition-transform duration-500"}`} />
             Refresh Data
@@ -266,7 +339,6 @@ export default function AdminPage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-8">
-          {/* Total */}
           <div className="group relative bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_35px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-100 to-transparent rounded-full blur-2xl opacity-60 -translate-y-1/2 translate-x-1/2"></div>
             <div className="relative">
@@ -281,7 +353,6 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Pending */}
           <div className="group relative bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_35px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-100 to-transparent rounded-full blur-2xl opacity-60 -translate-y-1/2 translate-x-1/2"></div>
             <div className="relative">
@@ -296,7 +367,6 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Confirmed */}
           <div className="group relative bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_35px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-100 to-transparent rounded-full blur-2xl opacity-60 -translate-y-1/2 translate-x-1/2"></div>
             <div className="relative">
@@ -311,7 +381,6 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Completed */}
           <div className="group relative bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_35px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-100 to-transparent rounded-full blur-2xl opacity-60 -translate-y-1/2 translate-x-1/2"></div>
             <div className="relative">
@@ -327,10 +396,9 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Search + Filter Bar */}
+        {/* Search + Filter */}
         <div className="bg-white rounded-3xl p-5 md:p-6 border border-gray-100 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] mb-6">
           <div className="flex flex-col lg:flex-row gap-4">
-            {/* Search */}
             <div className="relative flex-1">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
@@ -342,7 +410,6 @@ export default function AdminPage() {
               />
             </div>
 
-            {/* Filter Tabs */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0">
               <div className="flex items-center gap-1.5 px-3 py-2 text-gray-500">
                 <Filter className="w-4 h-4" />
@@ -371,7 +438,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Loading */}
         {isLoading && (
           <div className="text-center py-20 bg-white rounded-3xl border border-gray-100">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 mb-4">
@@ -381,7 +447,6 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Empty State */}
         {!isLoading && filteredAppointments.length === 0 && (
           <div className="bg-white rounded-3xl p-16 text-center border border-gray-100">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gray-50 mb-5">
@@ -415,12 +480,8 @@ export default function AdminPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {filteredAppointments.map((apt, idx) => (
-                    <tr
-                      key={apt._id}
-                      className="hover:bg-blue-50/30 transition-colors group"
-                      style={{ animationDelay: `${idx * 30}ms` }}
-                    >
+                  {filteredAppointments.map((apt) => (
+                    <tr key={apt._id} className="hover:bg-blue-50/30 transition-colors group">
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-teal-500 flex items-center justify-center text-white font-black text-sm shadow-[0_4px_10px_-3px_rgba(37,99,235,0.4)]">
@@ -482,7 +543,6 @@ export default function AdminPage() {
                         <button
                           onClick={() => handleDelete(apt._id)}
                           className="group/btn p-2.5 rounded-xl bg-red-50 hover:bg-red-500 text-red-600 hover:text-white transition-all duration-300 opacity-60 group-hover:opacity-100"
-                          title="Delete appointment"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -573,7 +633,6 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Footer Info */}
         {!isLoading && filteredAppointments.length > 0 && (
           <div className="mt-6 text-center">
             <p className="text-xs text-gray-400 font-medium">
