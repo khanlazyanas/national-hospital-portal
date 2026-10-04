@@ -5,7 +5,7 @@ import {
   Lock, Phone, Mail, MapPin, Calendar, 
   RefreshCw, LogOut, CheckCircle2, XCircle, Trash2,
   Search, Users, Clock, CheckCircle,
-  Activity, TrendingUp, Filter, Shield
+  Activity, TrendingUp, Filter, Shield, Download
 } from "lucide-react";
 
 interface Appointment {
@@ -33,7 +33,6 @@ export default function AdminPage() {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://national-hospital-portal.onrender.com";
 
-  // Check if token exists on page load
   useEffect(() => {
     const savedToken = localStorage.getItem("adminToken");
     if (savedToken) {
@@ -46,7 +45,6 @@ export default function AdminPage() {
     if (isLoggedIn && token) fetchAppointments();
   }, [isLoggedIn, token]);
 
-  // Handle 401 (token expired) - logout
   const handleUnauthorized = () => {
     localStorage.removeItem("adminToken");
     setToken("");
@@ -54,7 +52,6 @@ export default function AdminPage() {
     setError("Session expired. Please login again.");
   };
 
-  // LOGIN - Call backend /api/auth/login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoggingIn(true);
@@ -94,7 +91,6 @@ export default function AdminPage() {
     setAppointments([]);
   };
 
-  // FETCH - with token
   const fetchAppointments = async () => {
     setIsLoading(true);
     try {
@@ -118,7 +114,6 @@ export default function AdminPage() {
     }
   };
 
-  // STATUS UPDATE - with token
   const handleStatusChange = async (id: string, newStatus: string) => {
     try {
       const response = await fetch(`${API_URL}/api/appointments/${id}/status`, {
@@ -147,7 +142,6 @@ export default function AdminPage() {
     }
   };
 
-  // DELETE - with token
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this appointment?")) return;
 
@@ -170,6 +164,48 @@ export default function AdminPage() {
     } catch (err) {
       console.error("Error deleting:", err);
     }
+  };
+
+  // ==================== EXPORT CSV ====================
+  const handleExportCSV = () => {
+    if (appointments.length === 0) {
+      alert("No appointments to export.");
+      return;
+    }
+
+    const headers = [
+      "Patient Name",
+      "Phone",
+      "Email",
+      "Address",
+      "Preferred Date",
+      "Service",
+      "Status",
+      "Booked On",
+    ];
+
+    const rows = appointments.map((apt) => [
+      `"${apt.patientName}"`,
+      `"${apt.phone}"`,
+      `"${apt.email}"`,
+      `"${(apt.address || "").replace(/"/g, '""')}"`,
+      `"${apt.preferredDate}"`,
+      `"${apt.service}"`,
+      `"${apt.status}"`,
+      `"${new Date(apt.createdAt).toLocaleString()}"`,
+    ]);
+
+    const csvContent = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `appointments_${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   // Filtered appointments
@@ -327,14 +363,26 @@ export default function AdminPage() {
               Real-time appointment monitoring & management
             </p>
           </div>
-          <button
-            onClick={fetchAppointments}
-            disabled={isLoading}
-            className="group flex items-center justify-center gap-2 bg-[#0b2447] hover:bg-blue-600 text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-[0_10px_25px_-10px_rgba(11,36,71,0.5)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50"
-          >
-            <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : "group-hover:rotate-180 transition-transform duration-500"}`} />
-            Refresh Data
-          </button>
+          
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={handleExportCSV}
+              disabled={appointments.length === 0}
+              className="group flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-[0_10px_25px_-10px_rgba(34,197,94,0.5)] hover:shadow-[0_15px_30px_-10px_rgba(34,197,94,0.6)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            >
+              <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              Export CSV
+            </button>
+            <button
+              onClick={fetchAppointments}
+              disabled={isLoading}
+              className="group flex items-center justify-center gap-2 bg-[#0b2447] hover:bg-blue-600 text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-[0_10px_25px_-10px_rgba(11,36,71,0.5)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : "group-hover:rotate-180 transition-transform duration-500"}`} />
+              Refresh Data
+            </button>
+          </div>
         </div>
 
         {/* Stats Cards */}
