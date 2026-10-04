@@ -173,7 +173,7 @@ export default function AppointmentPage() {
                       onChange={handleChange}
                       required
                       className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
-                      placeholder="John Doe" 
+                      placeholder="Enter Your Name" 
                     />
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export default function AppointmentPage() {
                       onChange={handleChange}
                       required
                       className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
-                      placeholder="+91 98765 43210" 
+                      placeholder="Enter Your Mobile Number" 
                     />
                   </div>
                 </div>
@@ -206,7 +206,7 @@ export default function AppointmentPage() {
                       onChange={handleChange}
                       required
                       className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
-                      placeholder="john@example.com" 
+                      placeholder="Enter Your Email" 
                     />
                   </div>
                 </div>
@@ -238,7 +238,7 @@ export default function AppointmentPage() {
                     onChange={handleChange}
                     required
                     className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-blue-100/50 transition-all text-sm font-medium text-[#0b2447]" 
-                    placeholder="123, Street Name, City" 
+                    placeholder="Enter Your Adress" 
                   />
                 </div>
               </div>
