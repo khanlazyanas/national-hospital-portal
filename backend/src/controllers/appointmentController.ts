@@ -1,25 +1,35 @@
 import { Request, Response } from 'express';
 import Appointment from '../model/Appointment';
+import { sendPatientConfirmation, sendDoctorNotification } from '../utils/emailService';
+
 
 // @desc    Create a new appointment
 // @route   POST /api/appointments
 // @access  Public
 export const createAppointment = async (req: Request, res: Response) => {
   try {
-    const { patientName, phone, email, address, preferredDate, service } = req.body; // <-- address add karo
+    const { patientName, phone, email, address, preferredDate, service } = req.body;
 
-    // Validation
-    if (!patientName || !phone || !email || !address || !preferredDate || !service) { // <-- address check karo
+    if (!patientName || !phone || !email || !address || !preferredDate || !service) {
       return res.status(400).json({ message: 'Please fill all fields' });
     }
 
     const appointment = await Appointment.create({
-      patientName,
-      phone,
-      email,
-      address, // <-- address pass karo
-      preferredDate,
-      service,
+      patientName, phone, email, address, preferredDate, service,
+    });
+
+    // Send emails (non-blocking)
+    const emailData = { patientName, phone, email, address, preferredDate, service };
+    
+    Promise.allSettled([
+      sendPatientConfirmation(emailData),
+      sendDoctorNotification(emailData),
+    ]).then((results) => {
+      results.forEach((result, idx) => {
+        if (result.status === 'rejected') {
+          console.error(`Email ${idx === 0 ? 'to patient' : 'to doctor'} failed:`, result.reason);
+        }
+      });
     });
 
     res.status(201).json({
