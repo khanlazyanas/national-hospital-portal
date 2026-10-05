@@ -79,7 +79,7 @@ export const sendPatientConfirmation = async (data: AppointmentData) => {
     htmlContent: html,
     sender: {
       name: 'National Hospital',
-      email: 'appointments@nationalhospital.com',
+      email: 'anaskhan995620@gmail.com',
     },
     to: [{ email: data.email, name: data.patientName }],
   });
